@@ -1,0 +1,71 @@
+function : addUser
+input	 : { username : string,
+		   	 password : string,
+			 //somemore
+		 };
+output	 : { result : integer };
+
+
+function : changeUserSetting
+input	 : { username : string,
+		   	 //somemore
+		 };
+output	 : { result : integer };
+
+
+function : userLogin
+input	 : { username : string,
+		   	 password : string
+		 };
+output	 : { result : integer,
+		   	 userID : integer
+		 };
+
+
+function : getFriendList
+input	 : { userID : integer };
+output	 : { userList : [] };
+
+
+function : createEvent
+input	 : { createUser : integer,
+		   	 title : string,
+			 //somemore
+		 };
+output	 : { result : integer };
+
+
+function : createInvite
+input	 : { userID : integer,
+		   	 eventID : integer,
+			 //somemore
+		 };
+output	 : { result : integer };
+
+
+function : fellowFriend
+input	 : { currentUserID : integer,
+		   	 fellowUserID : integer
+		 };
+output	 : { result : integer };
+
+
+function : unfellowFriend
+input	 : { currentUserID : integer,
+		   	 fellowUserID : integer
+		 };
+output	 : { result : integer };
+
+
+function : getUserCalendar
+input	 : { currentUserID : integer,
+		   	 queriedUserID : integer,
+			 queriedDate : date
+		 };
+output	 : { eventList : [] };
+
+function : addEventToMyCalendar
+input	 : { eventID : integer,
+		   	 userID : integer
+		 };
+output	 : { result : integer };
