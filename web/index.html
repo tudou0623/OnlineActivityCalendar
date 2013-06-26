@@ -21,18 +21,21 @@
               <li>
                 <a href="/#/home">Home</a>
               </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Dropdown trigger <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                </ul>
+              <li>
+                <a href="/eventType">Event Type</a>
               </li>
             </ul>
             <ul class="nav pull-right">
               <form class="navbar-search pull-left" action="">
                 <input type="text" class="search-query span2" placeholder="Search">
               </form>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Message <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                </ul>
+              </li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                    Setting<i class="icon-asterisk"><b class="caret"></i></b>
@@ -70,6 +73,11 @@
   <script src="/libs/angular-ui/event.js"></script>
   <script src="/libs/angular-ui/calendar.js"></script>
   <script src="/controller/login.js"></script>
+  <script src="/controller/home.js"></script>
+  <script src="/controller/event.js"></script>
+  <script src="/controller/friend_list.js"></script>
+  <script src="/controller/user_setting.js"></script>
+  <script src="/controller/app.js"></script>
   <script src="/libs/bootstrap-datetimepicker.min.js"></script>
 
 </html>
