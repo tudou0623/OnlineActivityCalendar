@@ -1,4 +1,3 @@
-
 function HomeCtrl($scope, $routeParams, $http, $dialog) {
   $scope.opts = {
     backdrop : true,
@@ -8,7 +7,7 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
     controller : 'HomeCtrl',
     backdropFade : true
   };
-  $scope.creatEvent = function(){
+  $scope.createEvent = function(){
     var d = $dialog.dialog($scope.opts);
     d.open().then(function(result){
       if(result)
@@ -17,7 +16,6 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
       }
     });
   };
-
 
   var date = new Date();
     var d = date.getDate();
@@ -33,12 +31,12 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
     };
     /* event source that contains custom events on the scope */
     $scope.events = [
-      {title: 'All Day Event',start: new Date(y, m, 1), url : '/#/event/123'},
-      {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2), url : '/#/event/123'},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false, url : '/#/event/123'},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false, url : '/#/event/123'},
-      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, url : '/#/event/123'},
-      {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29), url : '/#/event/123'}
+    {title: 'All Day Event',start: new Date(y, m, 1), url : '/#/event/123'},
+    {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2), url : '/#/event/123'},
+    {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false, url : '/#/event/123'},
+    {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false, url : '/#/event/123'},
+    {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, url : '/#/event/123'},
+    {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29), url : '/#/event/123'}
     ];
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, callback) {

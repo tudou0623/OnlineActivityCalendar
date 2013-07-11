@@ -1,7 +1,7 @@
 <div class="container" ng-controller="EventCtrl">
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span10 offset1">
+			<div class="span6 offset1">
 				<h1>{{eventTitle}}</h1>
 				<p>Event Name : {{eventName}}</p>
 				<p>Promulgator : <a href="/#/home/{{eventPromulgator}}">{{eventPromulgator}}</a></p>
@@ -20,6 +20,9 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div class="span2">
+				<button class="btn btn-primary" ng-click="createInvite()">Invite Friend</button>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,53 @@
+<h2>New Invite</h2>
+<hr />
+
+<div class="container">
+	<div class="container-fluid">
+		<!--<div class="control-group">
+			<label class="control-label" for="friendName">Friend Name</label>
+
+			<div class="controls">
+				<input type="text" id="friendName">
+				<script type="text/javascript">
+				$('input[id=friendName]').keypress(function (event) {
+					if ( event.which == 13 ) {
+						$('textarea[id=friendList]').append($('input[id=friendName]').val() + " ");
+						$('input[id=friendName]').val('');
+					}
+				});
+				</script>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="eventName">Event Name</label>
+
+			<div class="controls">
+				<input type="text" id="eventName">
+				<script type="text/javascript">
+				$('input[id=eventName]').keypress(function (event) {
+					if ( event.which == 13 ) {
+						$('textarea[id=eventList]').append($('input[id=eventName]').val() + " ");
+						$('input[id=eventName]').val('');
+					}
+				});
+				</script>
+			</div>
+		</div>-->
+
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="friendList">Friend to be Invited</label>
+
+				<div class="controls">
+					<textarea id="friendList"></textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<button class="btn btn-primary">Save</button>
+				<button class="btn">Cancle</button>
+			</div>
+		</form>
+	</div>
+</div>
