@@ -43,14 +43,14 @@ input	 : { userID : integer,
 output	 : { result : integer };
 
 
-function : fellowFriend
+function : followFriend
 input	 : { currentUserID : integer,
 		   	 fellowUserID : integer
 		 };
 output	 : { result : integer };
 
 
-function : unfellowFriend
+function : unfollowFriend
 input	 : { currentUserID : integer,
 		   	 fellowUserID : integer
 		 };
