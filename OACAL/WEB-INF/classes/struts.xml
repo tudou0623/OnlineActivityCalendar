@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="json" namespace="/" extends="json-default">
+		<action name="userAction" class="com.oacal.web.action.UserAction">
+			<result type="json">
+				<param name="root">responseData</param>
+			</result>
+		</action>
+		<action name="activityAction" class="com.oacal.web.action.ActivityAction">
+			<result type="json">
+				<param name="root">responseData</param>
+			</result>
+		</action>
+	</package>
+	<package name="web" namespace="/" extends="struts-default">
+		<action name="login2" class="com.oacal.web.action.Login2Action">
+			<result name="success">/webpages/index.jsp</result>
+			<result name="fail">/webpages/logfailed.jsp</result>
+			<result name="register_success">/webpages/reg_suc.jsp</result>
+			<result name="register_fail">/webpages/reg_fail.jsp</result>
+		</action>
+		<action name="activity2" class="com.oacal.web.action.Activity2Action">
+			<result name="go">/webpages/activity/create_activity.jsp</result>
+			<result name="success">/webpages/index.jsp</result>
+			<result name="viewact">/webpages/activity/activity_infomation.jsp</result>
+		</action>
+		<action name="hello2" class="com.oacal.web.action.Hello2Action">
+			<result name="success">/webpages/index.jsp</result>
+		</action>
+	</package>
+
+</struts>
