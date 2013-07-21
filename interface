@@ -18,6 +18,17 @@ output	 : { result : integer,
 		   	 userID : integer
 };
 
+function:activityAction!create_act.action
+input    :{
+            start_time:string(07/25/2013)
+            end_time:string(07/25/2013)
+            capacity:int
+            privacy:int
+            description:string
+                 };
+output   :{
+
+                 };
 
 function : addUser
 input	 : { username : string,
