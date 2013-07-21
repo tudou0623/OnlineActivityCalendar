@@ -9,7 +9,7 @@ output	 : { result : integer,
 		 };
 
 
-function : userAction!login.action
+function : userAction!register.action
 input	 : { userLoginID : string,
 		   	 password : string,
 		 };
