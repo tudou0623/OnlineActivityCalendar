@@ -7,15 +7,43 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
     controller : 'HomeCtrl',
     backdropFade : true
   };
-  $scope.createEvent = function(){
+  $scope.popupCreateEventForm = function(){
     var d = $dialog.dialog($scope.opts);
-    d.open().then(function(result){
-      if(result)
+
+    d.open().then(function(eventName){
+      if(eventName)
       {
-        alert('dialog closed with result: ' + result);
+        alert('dialog closed with result: ' + eventName);
       }
     });
   };
+  $scope.createActivity = function () {
+      var title = 'This is a message box'
+      var msg = 'This is the content of the message box'
+      var btns = [{result:'cancel', label: 'Cancel'}, {result:'ok', label: 'OK', cssClass: 'btn-primary'}]
+
+      $dialog.messageBox(title, msg, btns)
+      .open()
+      .then(function(result) {
+        //alert('dialog closed with result: ' + result.capacity)
+        $.post("http://192.168.0.108:8000/activityAction!create_act.action",
+        {
+            start_time : result.startTime,
+            end_time : result.endTime,
+            capacity : result.capacity,
+            privacy : result.activityPrivacy,
+            description : result.activityDescription
+        })
+        .success(function (data, status) {
+          alert(data)
+      })
+        .error(function(data, status) {
+          alert("Error!")
+      })
+      })
+    //dialog.close(eventName);
+
+  }
 
   var date = new Date();
     var d = date.getDate();
@@ -32,7 +60,7 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
     /* event source that contains custom events on the scope */
     $scope.events = [
     {title: 'All Day Event',start: new Date(y, m, 1), url : '/#/event/123'},
-    {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2), url : '/#/event/123'},
+    {title: 'Long Event',start: new Date(y, m, d - 5), end : new Date(y, m, d - 2), url : '/#/event/123'},
     {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false, url : '/#/event/123'},
     {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false, url : '/#/event/123'},
     {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, url : '/#/event/123'},

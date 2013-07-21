@@ -18,9 +18,16 @@
   </div>
 
   <div class="control-group">
-    <label class="control-label" for="eventTime">Time</label>
+    <label class="control-label" for="start_time">Start Time</label>
     <div class="controls">
-      <input type="text" id="eventTime">
+      <input type="text" id="start_time">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="end_time">End Time</label>
+    <div class="controls">
+      <input type="text" id="end_time">
     </div>
   </div>
 
@@ -32,9 +39,9 @@
   </div>
 
   <div class="control-group">
-    <label class="control-label" for="eventPrivacy">Privacy</label>
+    <label class="control-label" for="activityPrivacy">Privacy</label>
     <div class="controls">
-    	<select id="eventPrivacy">
+    	<select id="activityPrivacy">
     		<option>Private</option>
     		<option>Public</option>
     	</select>
@@ -42,21 +49,21 @@
   </div>
 
   <div class="control-group">
-  	<label class="control-label" for="eventNumber">Number of Participants</label>
+  	<label class="control-label" for="capacity">Capacity</label>
   	<div class="controls">
-  		<input type="number">
+  		<input type="number" id="capacity">
   	</div>
   </div>
 
   <div class="control-group">
-  	<label class="control-label" for="eventDescription">Description</label>
+  	<label class="control-label" for="activityDescription">Description</label>
   	<div class="controls">
-  		<textarea></textarea>
+  		<textarea id="activityDescription"></textarea>
   	</div>
   </div>
 
   <div class="control-group">
-  	<button class="btn btn-primary">Save</button>
+  	<button class="btn btn-primary" ng-click="createActivity(eventName)">Save</button>
   	<button class="btn">Cancle</button>
   </div>
   <hr />
