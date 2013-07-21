@@ -1,3 +1,35 @@
+action : userAction!login.action
+input	 : { userLoginID : string,
+		   	 password : string
+		   	 
+		 };
+output	 : { result : integer,
+			sessionID: String,
+		   	 userID : integer
+		 };
+
+
+function : userAction!register.action
+input	 : { userLoginID : string,
+		   	 password : string,
+		 };
+output	 : { result : integer,
+			sessionID: String,
+		   	 userID : integer
+};
+
+function:activityAction!create_act.action
+input    :{
+            start_time:string(07/25/2013)
+            end_time:string(07/25/2013)
+            capacity:int
+            privacy:int
+            description:string
+                 };
+output   :{
+
+                 };
+
 function : addUser
 input	 : { username : string,
 		   	 password : string,
@@ -43,14 +75,14 @@ input	 : { userID : integer,
 output	 : { result : integer };
 
 
-function : fellowFriend
+function : followFriend
 input	 : { currentUserID : integer,
 		   	 fellowUserID : integer
 		 };
 output	 : { result : integer };
 
 
-function : unfellowFriend
+function : unfollowFriend
 input	 : { currentUserID : integer,
 		   	 fellowUserID : integer
 		 };
