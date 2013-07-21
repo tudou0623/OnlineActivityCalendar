@@ -1,14 +1,22 @@
-action : userLogin!login.action
+action : userAction!login.action
 input	 : { userLoginID : string,
 		   	 password : string
 		   	 
 		 };
 output	 : { result : integer,
-			sessionID: String
+			sessionID: String,
 		   	 userID : integer
 		 };
 
 
+function : userAction!login.action
+input	 : { userLoginID : string,
+		   	 password : string,
+		 };
+output	 : { result : integer,
+			sessionID: String,
+		   	 userID : integer
+};
 
 
 function : addUser
