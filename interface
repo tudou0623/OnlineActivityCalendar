@@ -1,103 +1,127 @@
 action : userAction!login.action
-input	 : { userLoginID : string,
-		   	 password : string
-		   	 
-		 };
-output	 : { result : integer,
-			sessionID: String,
-		   	 userID : integer
-		 };
+input : { 
+	userLoginID : string,
+	password : string	   	 
+};
+output : {
+	result : integer,
+	sessionID: String,
+	userID : integer
+};
 
+//TODO
+action : userAction!checkLoginStatus.action
+input : {
+	userID : string,
+	sessionID : string
+}
+output : {
+	result : bool
+}
 
 function : userAction!register.action
-input	 : { userLoginID : string,
-		   	 password : string,
-		 };
-output	 : { result : integer,
-			sessionID: String,
-		   	 userID : integer
+input : {
+	userLoginID : string,
+	password : string,
+};
+output : {
+	result : integer,
+	sessionID: String,
+	userID : integer
 };
 
 function:activityAction!create_act.action
-input    :{
-            start_time:string(07/25/2013)
-            end_time:string(07/25/2013)
-            capacity:int
-            privacy:int
-            description:string
-                 };
-output   :{
+input :{
+	start_time:string(07/25/2013)
+	end_time:string(07/25/2013)
+	capacity:int
+	privacy:int
+	description:string
+};
+output :{
 
-                 };
+};
 
 function : addUser
-input	 : { username : string,
-		   	 password : string,
-			 //somemore
-		 };
-output	 : { result : integer };
+input : {
+	username : string,
+	password : string,
+	//somemore
+};
+output : {
+	result : integer
+};
 
 
 function : changeUserSetting
-input	 : { username : string,
-		   	 //somemore
-		 };
-output	 : { result : integer };
+input : {
+	username : string,
+	//somemore
+};
+output : {
+	result : integer
+};
 
 
 function : userLogin
-input	 : { username : string,
-		   	 password : string
-		 };
-output	 : { result : integer,
-		   	 userID : integer
-		 };
-
+input : {
+	username : string,
+	password : string
+};
+output : {
+	result : integer,
+	userID : integer
+};
 
 function : getFriendList
-input	 : { userID : integer };
-output	 : { userList : [] };
+input : { userID : integer };
+output : { userList : [] };
 
 
 function : createEvent
-input	 : { createUser : integer,
-		   	 title : string,
-			 //somemore
-		 };
-output	 : { result : integer };
+input : {
+	createUser : integer,
+	title : string,
+	//somemore
+};
+output : { result : integer };
 
 
 function : createInvite
-input	 : { userID : integer,
-		   	 eventID : integer,
-			 //somemore
-		 };
-output	 : { result : integer };
+input : { userID : integer,
+	eventID : integer,
+	//somemore
+};
+output : { result : integer };
 
 
 function : followFriend
-input	 : { currentUserID : integer,
-		   	 fellowUserID : integer
-		 };
-output	 : { result : integer };
+input : {
+	currentUserID : integer,
+	followUserID : integer
+};
+output : { result : integer };
 
 
 function : unfollowFriend
-input	 : { currentUserID : integer,
-		   	 fellowUserID : integer
-		 };
-output	 : { result : integer };
+input : { 
+	currentUserID : integer,
+	followUserID : integer
+};
+output : { result : integer };
 
 
 function : getUserCalendar
-input	 : { currentUserID : integer,
-		   	 queriedUserID : integer,
-			 queriedDate : date
-		 };
-output	 : { eventList : [] };
+input : {
+	currentUserID : integer,
+	queriedUserID : integer,
+	queriedDate : date
+};
+output : { eventList : [] };
 
 function : addEventToMyCalendar
-input	 : { eventID : integer,
-		   	 userID : integer
-		 };
-output	 : { result : integer };
+input : {
+	eventID : integer,
+	userID : integer
+};
+output : { result : integer };
