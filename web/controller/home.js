@@ -1,4 +1,5 @@
-function HomeCtrl($scope, $routeParams, $http, $dialog) {
+function HomeCtrl($scope, $routeParams, $http, $dialog, $cookieStore) {
+  checkLoginStatus($http, $cookieStore);
   $scope.opts = {
     backdrop : true,
     keyboard : true,
@@ -7,16 +8,17 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
     controller : 'HomeCtrl',
     backdropFade : true
   };
-  $scope.popupCreateEventForm = function(){
-    var d = $dialog.dialog($scope.opts);
+  
+  $scope.popupCreateEventForm = function () {
+    var d = $dialog.dialog($scope.opts)
 
-    d.open().then(function(eventName){
-      if(eventName)
-      {
-        alert('dialog closed with result: ' + eventName);
+    d.open().then(function (eventName){
+      if (eventName) {
+        alert('dialog closed with result: ' + eventName)
       }
     });
   };
+
   $scope.createActivity = function () {
       var title = 'This is a message box'
       var msg = 'This is the content of the message box'
@@ -24,7 +26,7 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
 
       $dialog.messageBox(title, msg, btns)
       .open()
-      .then(function(result) {
+      .then(function (result) {
         //alert('dialog closed with result: ' + result.capacity)
         $.post("http://192.168.0.108:8000/activityAction!create_act.action",
         {
@@ -33,16 +35,15 @@ function HomeCtrl($scope, $routeParams, $http, $dialog) {
             capacity : result.capacity,
             privacy : result.activityPrivacy,
             description : result.activityDescription
-        })
+          })
         .success(function (data, status) {
-          alert(data)
-      })
-        .error(function(data, status) {
+          //alert(data)
+        })
+        .error(function (data, status) {
           alert("Error!")
-      })
+        })
       })
     //dialog.close(eventName);
-
   }
 
   var date = new Date();

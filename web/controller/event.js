@@ -1,4 +1,5 @@
-function EventCtrl($scope, $routeParams, $http, $dialog) {
+function EventCtrl($scope, $routeParams, $http, $dialog, $cookieStore) {
+  //alert($cookieStore.get('userID'))
   $scope.comment_list = [{comment : "This is comment."},
   {comment : "This is another comment."}];
 

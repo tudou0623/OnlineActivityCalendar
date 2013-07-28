@@ -1,4 +1,4 @@
-function showAllEventsCtrl($scope, $routeParams, $http) {
+function showAllEventsCtrl($scope, $routeParams, $http, $cookieStore) {
 	$scope.events_list1 = [
 	{ title : "CCG", date : "2013-07-11 13:00" , id : "456", url : "/img/download.jpg"},
 	{ title : "seminar", date : "2013-07-11 9:00", id : "123", url : "/img/images.jpg"}	]

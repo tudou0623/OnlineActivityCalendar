@@ -11,21 +11,24 @@ function LoginCtrl($scope, $routeParams, $http, $location, $cookieStore) {
     });*/
   login_success = function (data, status) { 
     if (data.userID != -1) {
+      set_cookie()
       window.location.href = "/#/home"
     } 
   }
   login_error = function(data, status) {
-    alert(data.userID)
+    //alert(data.userID)
     if (data.userID == -1) {
       alert("Wrong username or password!")
     }
   }
   set_cookie = function(data) {
     $cookieStore.put('userID', data.userID)
+    $cookieStore.put('userLoginID', data.userLoginID)
     $cookieStore.put('sessionID', data.sessionID)
+    $cookieStore.put('JSESSIONID', data.sessionID)
   }
   $scope.login = function () {
-    $.post("http://192.168.0.108:8000/userAction!login.action",
+    $.post("http://111.186.51.165:8000/userAction!login.action",
      { userLoginID : $scope.user.name, password : $scope.user.password })
     .success(function (data, status) { 
       if (data.userID != -1) {
@@ -37,7 +40,7 @@ function LoginCtrl($scope, $routeParams, $http, $location, $cookieStore) {
         }
       }
     }).error(function (data, status) {
-      alert(data.userID)
+      //alert(data.userID)
       if (data.userID == -1) {
         alert("Wrong username or password!")
       }

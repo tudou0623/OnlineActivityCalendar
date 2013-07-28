@@ -1,3 +1,9 @@
+<link rel="stylesheet" type="text/css" media="screen"
+ href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+<script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+
 <h2>New Event</h2>
 <hr />
 <form class="form-horizontal">
@@ -62,9 +68,27 @@
   	</div>
   </div>
 
+  <div class="well">
+    <div id="datetimepicker4" class="input-append">
+      <input data-format="yyyy-MM-dd" type="text"></input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+        </i>
+      </span>
+    </div>
+  </div>
+
   <div class="control-group">
   	<button class="btn btn-primary" ng-click="createActivity(eventName)">Save</button>
   	<button class="btn">Cancle</button>
   </div>
   <hr />
+
+  <script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
+  </script>
 </form>
