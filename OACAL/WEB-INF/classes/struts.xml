@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<package name="json" namespace="/" extends="json-default">
+	<!-- 是否支持方法动态调用,即action名！方法名 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 开发模式下使用,这样可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 指定Web应用的默认编码集,相当于调用HttpServletRequest的setCharacterEncoding方法 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 该属性指定需要Struts 2处理的请求后缀，多个后缀之间以英文逗号（,）隔开-->
+	<constant name="struts.action.extension" value="action,do" />
+	<!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	<!-- 配置log4j的日志级别 -->
+	<constant name="log4j.logger.org.apache.struts2.convention" value="DEBUG" />
+
+	<package name="interceptors" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.oacal.interceptor.LoginInterceptor"/>
+			<interceptor-stack name="oacalStack">
+				<interceptor-ref name="loginInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 重定义默认拦截器堆栈 -->
+		<default-interceptor-ref name="oacalStack"/>
+		<global-results>
+			<result name="redirectToLoginAction" type="redirectAction">userAction!login.action</result>
+			<result name="redirectToLoginPage" type="redirect">/login.html</result>
+		</global-results>
+	</package>
+	
+	<package name="json" namespace="/" extends="json-default,interceptors">
 		<action name="userAction" class="com.oacal.web.action.UserAction">
 			<result type="json">
 				<param name="root">responseData</param>
@@ -13,7 +45,7 @@
 			</result>
 		</action>
 	</package>
-	<package name="web" namespace="/" extends="struts-default">
+	<package name="web" namespace="/" extends="struts-default,interceptors">
 		<action name="login2" class="com.oacal.web.action.Login2Action">
 			<result name="success">/webpages/index.jsp</result>
 			<result name="fail">/webpages/logfailed.jsp</result>
