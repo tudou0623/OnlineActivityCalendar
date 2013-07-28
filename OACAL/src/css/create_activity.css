@@ -1,0 +1,154 @@
+#header {
+	float: none;
+	height: 10%;
+	width: 100%;
+	boorder: 1px solid #00F;
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	left: 0px;
+	top: 0px;
+	background-color: #CCC;
+}
+
+#left {
+	height: 90%;
+	width: 15%;
+	boorder: 1px solid #C0F;
+	position: absolute;
+	top: 10%;
+	left: 0px;
+	background-color: #999;
+}
+#middle {
+	position: absolute;
+	height: 90%;
+	width: 84%;
+	top: 10%;
+	boorder: 1px solid red;
+	left: 15%;
+	background-color: rgb(221,221,221);
+}
+#right {
+	boorder: 1px solid #F3F;
+	position: absolute;
+	height: 90%;
+	width: 1%;
+	top: 10%;
+	left: 99%;
+	background-color: #999;
+}
+#zhuangtai {
+	background-color: #3FF;
+	height: 60px;
+	width: 100%;
+}
+#fabuhuodong {
+	background-color: #0F9;
+	height: 60px;
+	width: 100%;
+}
+#haoyou {
+	background-color: #9F0;
+	height: 50%;
+	width: 100%;
+}
+#chakanhuodong {
+	background-color: #0F9;
+	height: 60px;
+	width: 100%;
+}
+#rili {
+	background-color: #3FF;
+	height: 60px;
+	width: 100%;
+}
+#middle_up {
+	position: relative;
+	height: 5%;
+	width: 100%;
+	top: 0%;
+	right: 0%;
+	background-color: #FFC;
+}
+#act_name {
+	height: 50px;
+	width: 90%;
+	position: relative;
+	background-color: #FF9;
+	top: 20px;
+	left: 5%;
+}
+#act_start_time {
+	position: relative;
+	height: 50px;
+	width: 90%;
+	background-color: #FFC;
+	top: 20px;
+	left: 5%;
+}
+#act_end_time {
+	position: relative;
+	height: 50px;
+	width: 90%;
+	background-color: #FF9;
+	top: 20px;
+	left: 5%;
+}
+#act_place {
+	background-color: #FFC;
+	position: relative;
+	height: 50px;
+	width: 90%;
+	top: 20px;
+	left: 5%;
+}
+#act_info {
+	position: relative;
+	height: 300px;
+	width: 90%;
+	top: 20px;
+	left:5%;
+	background-color: #0CF;
+}
+#middle_left {
+	width: 60%;
+	height: 650px;
+	boorder: 1px solid #09F;
+	position: relative;
+	float: left;
+}
+#middle_right {
+	width: 40%;
+	height: 650px;
+	boorder: 1px solid #93F;
+	position: relative;
+	float: left;
+	background-color: rgb(240,240,240);
+}
+#yaoqing {
+	background-color: rgb(0,255,102);
+	height: 30px;
+	width: 80px;
+	left: 40px;
+	top: 30px;
+	position: relative;
+	float: left;
+}
+#chazhao {
+	background-color: rgb(0,255,255);
+	float: left;
+	height: 30px;
+	width: 160px;
+	position: relative;
+	left: 40px;
+	top: 30px;
+}
+#middle_right_down {
+	background-color: rgb(255,255,151);
+	position: relative;
+	height: 400px;
+	width: 80%;
+	top: 60px;
+	left: 10%;
+}

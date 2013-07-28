@@ -1,0 +1,72 @@
+#header {
+	float: none;
+	height: 10%;
+	width: 100%;
+	boorder: 1px solid #00F;
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	left: 0px;
+	top: 0px;
+	background-color: #CCC;
+}
+
+#left {
+	height: 90%;
+	width: 15%;
+	boorder: 1px solid #C0F;
+	position: absolute;
+	top: 10%;
+	left: 0px;
+	background-color: #999;
+}
+#middle {
+	position: absolute;
+	height: 90%;
+	width: 84%;
+	top: 10%;
+	boorder: 1px solid #0F9;
+	left: 15%;
+}
+#right {
+	boorder: 1px solid #F3F;
+	position: absolute;
+	height: 90%;
+	width: 1%;
+	top: 10%;
+	left: 99%;
+	background-color: #999;
+}
+#zhuangtai {
+	background-color: #3FF;
+	height: 60px;
+	width: 100%;
+}
+#fabuhuodong {
+	background-color: #0F9;
+	height: 60px;
+	width: 100%;
+}
+#haoyou {
+	background-color: #9F0;
+	height: 50%;
+	width: 100%;
+}
+#chakanhuodong {
+    background-color: #0F9;
+    height: 60px;
+    width: 100%;
+}
+#rili {
+	background-color: #3FF;
+	height: 60px;
+	width: 100%;
+}
+#middle_up {
+	position: relative;
+	height: 5%;
+	width: 100%;
+	top: 0%;
+	right: 0%;
+	background-color: #FFC;
+}

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+				http://www.springframework.org/schema/context
+				http://www.springframework.org/schema/context/spring-context-3.1.xsd
+				http://www.springframework.org/schema/aop
+				http://www.springframework.org/schema/aop/spring-aop.xsd
+				http://www.springframework.org/schema/tx
+				http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/oacal">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.current_session_context_class">
+					org.springframework.orm.hibernate4.SpringSessionContext
+				</prop>
+				<prop key="hibernate.cache.provider_class">
+					net.sf.ehcache.hibernate.EhCacheProvider
+				</prop>
+				<prop key="hibernate.cache.region.factory_class">
+					org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<prop key="jdbc.use_scrollable_resultset">false</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/oacal/model/OacalUser.hbm.xml</value>
+				<value>com/oacal/model/OacalActivities.hbm.xml</value>
+				</list>
+		</property>
+	</bean>
+	
+	<bean id="OacalUserDAO" class="com.oacal.dao.OacalUserDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userService" class="com.oacal.service.UserService">
+		<property name="userDAO" ref="OacalUserDAO" />
+	</bean>
+	<bean id="loginAction" class="com.oacal.web.action.Login2Action">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="userAction" class="com.oacal.web.action.UserAction">
+		<property name="userService" ref="userService" />
+	</bean>
+	 <bean id="OacalActivitiesDAO" class="com.oacal.dao.OacalActivitiesDAO">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="activityService" class="com.oacal.service.ActivityService">
+		<property name="activitiesDAO" ref="OacalActivitiesDAO" />
+	</bean>
+	<bean id="activityAction" class="com.oacal.web.action.Activity2Action">
+		<property name="activityService" ref="activityService" />
+	</bean>
+	 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+
+<!--  
+	<tx:advice id="baseServiceAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+			<tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			<tx:method name="del*" propagation="REQUIRED"/>
+			<tx:method name="apply*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="*"/>
+			</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="allManagedTxMethod"
+            expression="execution(* com.oacal.service.*.*(..))" />
+        <aop:advisor advice-ref="baseServiceAdvice"
+            pointcut-ref="allManagedTxMethod" />        
+    </aop:config>
+-->
+
+	<!--  
+    <bean id="transactionInterceptor"
+    	class="org.springframework.transaction.interceptor.TransactionInterceptor"> 
+    	<property name="transactionManager">
+    		<ref bean="transactionManager" />
+    	</property>
+    	<property name="transactionAttributeSource"><ref bean="defaultTxAttributes"/></property> 
+    </bean>
+    
+    <bean id="defaultTxAttributes"
+    	class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+    	<property name="properties">
+    		<props>
+    			<prop key="create*">PROPAGATION_REQUIRED</prop>
+    			<prop key="del*">PROPAGATION_REQUIRED</prop>
+    			<prop key="remove*">PROPAGATION_REQUIRED</prop>
+    			<prop key="add*">PROPAGATION_REQUIRED</prop>
+    			<prop key="save*">PROPAGATION_REQUIRED</prop>
+    			<prop key="update*">PROPAGATION_REQUIRED</prop>
+    			<prop key="apply*">PROPAGATION_REQUIRED</prop>
+    			<prop key="modify*">PROPAGATION_REQUIRED</prop>
+    			<prop key="register*">PROPAGATION_REQUIRED</prop>
+    			<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+    			<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+    		</props>
+    	</property>
+    </bean>
+    -->
+    
+    <!--  
+    <bean id="InvoiceTxAttributes"
+    	class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+    	<property name="properties">
+			<props>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="cancel*">PROPAGATION_REQUIRED</prop>
+				<prop key="accountIn">PROPAGATION_REQUIRED</prop>
+				<prop key="accountOut">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_SUPPORTS</prop>
+			</props>
+		</property>
+	</bean>
+    -->
+    
+    <!-- 配置事务特性 -->  
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="exists" read-only="true" />   
+    		<tx:method name="save*" propagation="REQUIRED" />     
+        	<tx:method name="add*" propagation="REQUIRED" />     
+        	<tx:method name="create*" propagation="REQUIRED" />     
+        	<tx:method name="insert*" propagation="REQUIRED" />     
+        	<tx:method name="update*" propagation="REQUIRED" />     
+        	<tx:method name="merge*" propagation="REQUIRED" />     
+        	<tx:method name="del*" propagation="REQUIRED" />     
+        	<tx:method name="remove*" propagation="REQUIRED" />     
+        	<tx:method name="put*" propagation="REQUIRED" />     
+        	<tx:method name="use*" propagation="REQUIRED"/>     
+        	<!-- hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到    -->  
+        	<tx:method name="get*" propagation="REQUIRED" />     
+        	<tx:method name="count*" propagation="REQUIRED" read-only="true" />     
+        	<tx:method name="find*" propagation="REQUIRED" read-only="true" />     
+        	<tx:method name="list*" propagation="REQUIRED" read-only="true" />    
+         	<tx:method name="*" propagation="REQUIRED" />
+         </tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置哪些类的方法进行事务管理 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="bussinessService" expression="execution(* com.oacal.service.*.*(..))" />
+		<aop:advisor pointcut-ref="bussinessService" advice-ref="txAdvice" />  
+	</aop:config>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="dao" expression="execution(* com.oacal.dao.*.*(..))" />
+		<aop:advisor pointcut-ref="dao" advice-ref="txAdvice" />
+	</aop:config>
+    
+	<!-- 自动代理 
+	<bean id="autoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+	<bean id="regexpMethodPointcutAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref bean="OacalUserDAO" />
+		</property>
+		<property name="patterns">
+			<list>
+				<value>.*del*</value>
+				<value>.*remove*</value>
+				<value>.*add*</value>
+				<value>.*update*</value>
+				<value>.*save*</value>
+				<value>.*apply*</value>
+				<value>.*modify*</value>
+				<value>.*register*</value>
+			</list>
+		</property>
+	</bean>
+	-->
+	
+	
+	<!-- 名称匹配的自动代理创建器  可以增加其他的拦截器
+    <bean name="beanNameAutoProxyCreator"
+    	class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 
+    	<property name="beanNames">
+    		<value>*DAO,*Service</value>
+    	</property> 
+    	<property name="interceptorNames"> 
+    		<list>
+    		<value>transactionInterceptor</value> 
+            </list> 
+        </property> 
+    </bean>
+    -->
+    
+    <!-- 名称匹配的自动代理创建器 
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">  
+    	<property name="messageConverters">
+    		<list>
+    			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    				<property name="supportedMediaTypes">
+    					<list>
+    						<value>text/plain;charset=UTF-8</value>
+    					</list>
+    				</property> 
+    			</bean>
+    			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+    				<property name="supportedMediaTypes">
+    					<list>
+    						<value>text/plain;charset=UTF-8</value>
+    						<value>application/json;charset=UTF-8</value>
+    					</list>
+    				</property>
+    			</bean>
+    		</list>
+    	</property>
+    </bean>
+   -->
+
+    </beans>

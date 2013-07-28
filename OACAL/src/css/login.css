@@ -1,0 +1,28 @@
+#header {
+	float: none;
+	height: 10%;
+	width: 100%;
+	boorder: 1px solid #00F;
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	left: 0px;
+	top: 0px;
+	background-color: #CCC;
+}
+#log_left {
+	background-color: #0FF;
+	height: 90%;
+	width: 50%;
+	top: 10%;
+	position: absolute;
+	left: 0px;
+}
+#log_right {
+	background-color: #FF9;
+	height: 90%;
+	width: 50%;
+	position: absolute;
+	top: 10%;
+	right: 0%;
+}
