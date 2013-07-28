@@ -9,7 +9,7 @@ output : {
 	sessionID: string,	// "0" when failed
 	userID : integer	// -1 when failed
 };
-set session: {			// only when success, stored in browser
+set session: {			// only when success, MUST be stored in browser.
 	userLoginID: string,
 	userID: integer
 };
@@ -37,7 +37,7 @@ output : {
 	sessionID: string,	// "0" when failed
 	userID : integer	// -1 when failed
 };
-set session: {			// only when success, stored in browser
+set session: {			// only when success, MUST stored in browser
 	userLoginID: string,
 	userID: integer
 };
