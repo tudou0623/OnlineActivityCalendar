@@ -1,0 +1,3 @@
+function userSettingCtrl($scope, $http) {
+
+}

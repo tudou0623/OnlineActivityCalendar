@@ -1,0 +1,35 @@
+<div class="container" ng-controller="showAllEventsCtrl">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span4">
+					<ul class="thumbnails">
+						<li class="thumbnail" ng-repeat="event in events_list1">
+							<p><a href="/#/event/{{event.id}}">{{event.title}}<a></p>
+							<p><a href="/#/event/{{evnt.id}}">	<image src="{{event.url}}" href="/#/event/{{event.id}}"></image></a></p>
+						</li>
+						<hr></hr>
+					</ul>
+				</div>
+				<div class="span4">
+					<ul class="thumbnails">
+						<li class="thumbnail" ng-repeat="event in events_list2">
+							<p><a href="/#/event/{{event.id}}">{{event.title}}<a></p>
+							<p><a href="/#/event/{{evnt.id}}">	<image src="{{event.url}}" href="/#/event/{{event.id}}"></image></a></p>
+						</li>
+						<hr></hr>
+					</ul>
+				</div>
+				<div class="span4">
+					<ul class="thumbnails">
+						<li class="thumbnail" ng-repeat="event in events_list3">
+							<p><a href="/#/event/{{event.id}}">{{event.title}}<a></p>
+							<p><a href="/#/event/{{evnt.id}}">	<image src="{{event.url}}" href="/#/event/{{event.id}}"></image></a></p>
+						</li>
+						<hr></hr>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

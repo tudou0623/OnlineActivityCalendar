@@ -1,0 +1,29 @@
+<div class="container" ng-controller="EventCtrl">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6 offset1">
+				<h1>{{eventTitle}}</h1>
+				<p>Event Name : {{eventName}}</p>
+				<p>Promulgator : <a href="/#/home/{{eventPromulgator}}">{{eventPromulgator}}</a></p>
+				<p>Event Type : {{eventType}}</p>
+				<p>Time : {{eventTime}}</p>
+				<p>Location : {{eventLocation}}</p>
+				<p>Privacy : {{eventPrivacy}}</p>
+				<p>Number of Participants : {{numberOfParticipants}}</p>
+				<p>Description : </p>
+				<textarea readonly>{{eventDescription}}</textarea>
+				<p>Comment : </p>
+				<div>
+					<ul>
+						<li ng-repeat="comment in comment_list">
+							<pre>{{comment.comment}}</pre>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="span2">
+				<button class="btn btn-primary" ng-click="createInvite()">Invite Friend</button>
+			</div>
+		</div>
+	</div>
+</div>

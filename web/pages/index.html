@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en" ng-app="logincat">
+  <head>
+    <meta charset="utf-8">
+    <title>Home123</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/fullcalendar.css">
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/#/home">Online Activity Calendar</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Dropdown trigger <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                </ul>
+              </li>
+              <li>
+                <a href="/#/home">主页</a>
+              </li>
+            </ul>
+            <form class="navbar-search pull-left" action="">
+              <input type="text" class="search-query span2" placeholder="Search">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div ng-view></div>
+  </body>
+  <script src="/libs/jquery.min.js"></script>
+  <script src="/libs/bootstrap/bootstrap.min.js"></script>
+  <script src="/libs/angular/angular.js"></script>
+  <script src="/libs/angular-bootstrap/transition/transition.js"></script>
+  <script src="/libs/angular-bootstrap/dialog/dialog.js"></script>
+  <script src="/libs/angular-bootstrap/modal/modal.js"></script>
+  <script src="/libs/angular-bootstrap/rating/rating.js"></script>
+  <script src="/libs/angular-ui/fullcalendar.js"></script>
+  <script src="/libs/angular-ui/jquery-ui.min.js"></script>
+  <script src="/libs/angular-ui/event.js"></script>
+  <script src="/libs/angular-ui/calendar.js"></script>
+  <script src="/controller/login.js"></script>
+  <script src="/libs/bootstrap-datetimepicker.min.js"></script>
+
+</html>
