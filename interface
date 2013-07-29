@@ -63,6 +63,66 @@ output :{
 
 };
 
+function:friendAction!addfriend.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input:{
+        friendid:integer
+}
+output:{
+
+}
+
+function:friendAction!delfriend.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input:{
+        friendid:integer
+}
+output:{
+
+}
+
+function:friendAction!addcare.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input:{
+        friendid:integer
+}
+output:{
+
+}
+
+function:friendAction!delcare.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input:{
+        friendid:integer
+}
+output:{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function : addUser
 input : {
 	username : string,
