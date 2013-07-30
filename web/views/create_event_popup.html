@@ -1,8 +1,4 @@
-<link rel="stylesheet" type="text/css" media="screen"
- href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
-<script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
-<script src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 
 <h2>New Event</h2>
 <hr />
@@ -23,12 +19,20 @@
     </div>
   </div>
 
-  <div class="control-group">
+  <div class="well">
+    <div class="control-group input-append">
+      <input id="inputDatepicker" class="input-small ng-pristine ng-valid" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker="">
+      <input id="inputTimepicker" class="input-small ng-valid ng-dirty ng-valid-time" type="text" ng-model="timepicker.startTime" bs-timepicker="" data-toggle="timepicker">
+      <button type="button" class="btn" data-toggle="timepicker"><i class="icon-time"></i></button>
+    </div>
+  </div>
+
+  <!--<div class="control-group">
     <label class="control-label" for="start_time">Start Time</label>
     <div class="controls">
       <input type="text" id="start_time">
     </div>
-  </div>
+  </div>-->
 
   <div class="control-group">
     <label class="control-label" for="end_time">End Time</label>
@@ -68,27 +72,9 @@
   	</div>
   </div>
 
-  <div class="well">
-    <div id="datetimepicker4" class="input-append">
-      <input data-format="yyyy-MM-dd" type="text"></input>
-      <span class="add-on">
-        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-        </i>
-      </span>
-    </div>
-  </div>
-
   <div class="control-group">
   	<button class="btn btn-primary" ng-click="createActivity(eventName)">Save</button>
   	<button class="btn">Cancle</button>
   </div>
   <hr />
-
-  <script type="text/javascript">
-  $(function() {
-    $('#datetimepicker4').datetimepicker({
-      pickTime: false
-    });
-  });
-  </script>
 </form>

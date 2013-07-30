@@ -1,4 +1,5 @@
-var logincat = angular.module('logincat', ['ngCookies', 'ui.bootstrap.modal', 'ui.calendar', 'ui.bootstrap.rating', 'ui.bootstrap.collapse', 'ui.bootstrap.accordion']).
+var logincat = angular.module('logincat', ['ngCookies', 'ui.bootstrap.modal', 'ui.calendar',
+	'ui.bootstrap.rating', 'ui.bootstrap.collapse', 'ui.bootstrap.accordion', '$strap.directives']).
 	config(function($routeProvider, $httpProvider, $locationProvider) {
 		$routeProvider.when('/', {templateUrl: '/views/login.html', controller: LoginCtrl});
 		$routeProvider.when('/home', {templateUrl : '/views/home.html', controller : HomeCtrl});
@@ -9,3 +10,10 @@ var logincat = angular.module('logincat', ['ngCookies', 'ui.bootstrap.modal', 'u
 		$routeProvider.otherwise({redirectTo: '/'});
 		//$locationProvider.html5Mode(true);
 	});
+
+	/*logincat.value('$strap.config', {
+		datepicker : {
+			language: 'fr',
+			format: 'M d, yyyy'
+		}
+	})*/

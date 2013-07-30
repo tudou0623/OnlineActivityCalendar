@@ -1,4 +1,4 @@
-function DialogDemoCtrl($scope, $dialog){
+function DialogDemoCtrl ($scope, $dialog) {
 
   // Inlined template for demo
   var t = '<div class="modal-header">'+
@@ -19,7 +19,7 @@ function DialogDemoCtrl($scope, $dialog){
     controller: 'TestDialogController'
   };
 
-  $scope.openDialog = function(){
+  $scope.openDialog = function() {
     var d = $dialog.dialog($scope.opts);
     d.open().then(function(result){
       if(result)
@@ -29,14 +29,14 @@ function DialogDemoCtrl($scope, $dialog){
     });
   };
 
-  $scope.openMessageBox = function(){
+  $scope.openMessageBox = function() {
     var title = 'This is a message box';
     var msg = 'This is the content of the message box';
     var btns = [{result:'cancel', label: 'Cancel'}, {result:'ok', label: 'OK', cssClass: 'btn-primary'}];
 
     $dialog.messageBox(title, msg, btns)
       .open()
-      .then(function(result){
+      .then(function (result) {
         alert('dialog closed with result: ' + result);
     });
   };

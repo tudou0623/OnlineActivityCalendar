@@ -1,5 +1,9 @@
 function HomeCtrl($scope, $routeParams, $http, $dialog, $cookieStore) {
-  checkLoginStatus($http, $cookieStore);
+  //checkLoginStatus($http, $cookieStore);
+  $scope.datepicker = { date : new Date("2012-09-01T00:00:00.000Z") };
+  $scope.timepicker = {
+    "time" : "11:15 PM"
+  };
   $scope.opts = {
     backdrop : true,
     keyboard : true,
