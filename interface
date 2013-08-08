@@ -51,6 +51,26 @@ output : {
 	result : bool
 };
 
+
+function: userAction!search.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	uname : string,		// user name
+	psize : integer,	// page size
+	pid:	integer		// selected page number
+};
+output : {
+
+
+
+}
+
+
+
+
 function:activityAction!create_act.action
 input :{
 	start_time:string(07/25/2013)
