@@ -63,10 +63,12 @@ input : {
 	pid:	integer		// selected page number
 };
 output : {
-
-
-
-}
+	count : long,		// total number of search results
+	userList: [  { userID: xxx, loginID:xxx, gender:xxx, signature:xxx } ,
+		     { userID: xxx, loginID:xxx, gender:xxx, signature:xxx } ,
+			...
+		  ]
+};
 
 
 
