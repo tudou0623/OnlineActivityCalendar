@@ -100,7 +100,7 @@ input :	{
 	uid : integer,		// the owner userID of the followers list you wanna get
 };
 output :{
-	result:    	integer,	// 0 for success, 1 for access denied, 2 for no cares, 3 for internal error
+	result:    	integer,	// 0 for success, 1 for access denied, 2 for no followers, 3 for internal error
 	followerList:	[ { userID: xxx, loginID:xxx } ,
 			  { userID: xxx, loginID:xxx } ,
 			  ...
@@ -108,6 +108,21 @@ output :{
 };
 
 
+function: careAction!getCareGroupList.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	uid : integer,		// the owner userID of the CareGroup list you wanna get
+};
+output :{
+	result:    	integer,	// 0 for success, 1 for access denied, 2 for no groups, 3 for internal error
+	caregroupList:	[ { groupID: xxx, groupName:xxx } ,
+			  { groupID: xxx, groupName:xxx } ,
+			  ...
+			]
+};
 
 
 
