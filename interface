@@ -64,8 +64,8 @@ input : {
 };
 output : {
 	count : long,		// total number of search results
-	userList: [  { userID: xxx, loginID:xxx, gender:xxx, signature:xxx } ,
-		     { userID: xxx, loginID:xxx, gender:xxx, signature:xxx } ,
+	userList: [  { userID: integer, loginID:string, gender:string(M/F), signature:string } ,
+		     { userID: integer, loginID:string, gender:string(M/F), signature:string } ,
 			...
 		  ]
 };
