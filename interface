@@ -44,6 +44,18 @@ set session: {			// only when success, MUST stored in browser
 
 
 
+/*
+* Define Privacy Type
+	a) privacyType = 0: accessible to all ( only used in activity's privacy policies )
+	b) privacyType = 1: accessible to registered users
+	c) privacyType = 2: accessible to my cares and followers
+	d) privacyType = 3: accessible to my cares
+	e) privacyType = 4: accessible to my friends ( caring and followed )
+	f) privacyType = 5: accessible to specific cares groups
+	   grantedLoginIdlist: groupName list ( As a string, delimiter is ',' )
+	g) privacyType = 6: accessible to specific cares
+	   grantedLoginIdlist: userLoginId list ( As a string, delimiter is ',' )
+*/
 
 <!-- ----------------------------------------------------------------------------------------------------------------
 
@@ -128,6 +140,38 @@ output :{
 			  ...
 			]
 };
+
+
+function: careAction!addCare.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	uid : integer,		// the user id of the person u wanna care
+	gid : integer,		// the group id of the person u wanna to put into
+	remark: string,		// the remark name of the person u wanna to care
+};
+output :{
+	result:    	integer,	// 0 for success, 1 for add care denied, 2 for no such person, 3 for internal error
+};
+
+
+function: careAction!cancelCare.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	uid : integer,		// the user id of the person u wanna cancel care
+};
+output :{
+	result:    	integer,	// 0 for success, 2 for no such person, 3 for internal error
+};
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------- -->
 
