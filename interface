@@ -99,10 +99,11 @@ input :	{
 };
 output :{
 	result:    integer,	// 0 for success, 1 for access denied, 2 for no cares, 3 for internal error
-	careList:  {	groupName1:  [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] ,
-			groupName2:  [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] ,
-			...
-		   }
+	careList:  
+	[  { groupName:string,  userlist: [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] },
+	   { groupName:string,  userlist: [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] },
+		...
+	]
 	// the users' info is grouped by friendGroupName
 };
 
