@@ -182,7 +182,7 @@ input :	{
 	gname : string,		// the name of the new group u wanna add
 };
 output :{
-	result:    	integer,	// 0 for success, 3 for internal error
+	result: integer,	// 0 for success, 2 for group name already exists, 3 for internal error
 };
 
 
