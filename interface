@@ -154,7 +154,8 @@ input :	{
 	remark: string,		// the remark name of the person u wanna to care
 };
 output :{
-	result:    	integer,	// 0 for success, 1 for add care denied, 2 for no such person, 3 for internal error
+	result: integer,	// 0 for success, 1 for add care denied, 2 for no such person, 
+				// 3 for error gid, 4 for already cared, 5 for internal error
 };
 
 
@@ -167,7 +168,8 @@ input :	{
 	uid : integer,		// the user id of the person u wanna cancel care
 };
 output :{
-	result:    	integer,	// 0 for success, 2 for no such person, 3 for internal error
+	result: integer,	// 0 for success, 2 for no such person, 
+				// 3 for not cared, 4 for internal error
 };
 
 
