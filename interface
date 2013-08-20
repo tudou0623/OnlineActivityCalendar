@@ -31,7 +31,7 @@ input : {
 	userLoginID : string,	// required
 	password : string,	// required
 	nickname : string,	// required
-	email : string,		// suggested
+	email : string,		// required
 };
 output : {
 	userLoginID: string,	// -1 when failed
