@@ -57,6 +57,8 @@ set session: {			// only when success, MUST stored in browser
 	   grantedLoginIdlist: groupName list ( As a string, delimiter is ',' )
 	g) privacyType = 6: accessible to specific cares
 	   grantedLoginIdlist: userLoginId list ( As a string, delimiter is ',' )
+	h) privacyType = 7: accessible only to myself
+	i) privacyType = 8: accessible to my followers
 */
 
 <!-- ----------------------------------------------------------------------------------------------------------------
@@ -199,6 +201,7 @@ post session : {		// posted by  browser
 };
 input :{
 	title:	string,			// required
+	tag:	string,			// required
 	st:	timestamp,		// start time, required
 	et:	timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
@@ -228,6 +231,7 @@ output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
 	isCreator: bool,
 	title:	string,
+	tag:	string,
 	st:	timestamp,	// start time
 	et:	timestamp,	// end time
 	cap:	integer,	// capacity, if not set, means infinite
@@ -249,6 +253,7 @@ post session : {		// posted by  browser
 input :{
 	aid:	integer,		// the id of this activity u wanna revise
 	title:	string,			// required
+	tag:	string,			// required
 	st:	timestamp,		// start time, required
 	et:	timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
@@ -265,8 +270,62 @@ output :{
 };
 
 
+function: activityAction!searchByTitle.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided 
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size
+	pid:	integer		// selected page number
+};
+output : {
+	count : long,		// total number of search results
+	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     ...
+	  	  ]
+	// return all the public activities (description is limited to 500 words)
+};
 
-function: activityAction!getUsersActivities.action
+
+function: activityAction!searchByTitle.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided 
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size
+	pid:	integer		// selected page number
+};
+output : {
+	count : long,		// total number of search results
+	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     ...
+	  	  ]
+	// return all the public activities (description is limited to 500 words)
+};
+
+
+
+function: calendarAction!getUsersActivities.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -282,30 +341,31 @@ output :{
 	[  
 	   { 
 	  	uid: 	  integer, 
-	    	actList:  [  {  aid: integer, title: string,  cap: integer, st: timestamp, 
-	  	  		et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     {  aid: integer, title: string,  cap: integer, st: timestamp, 
-	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	    	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
 	  	  	     ...
 	  	  	  ]
 	   },
 	   
 	   { 
 	  	uid: 	  integer, 
-	    	actList:  [  {  aid: integer, title: string,  cap: integer, st: timestamp, 
-	  	  		et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     {  aid: integer, title: string,  cap: integer, st: timestamp, 
-	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	    	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
+	  	  			et: timestamp, location: string, lid: integer, desc: string },
 	  	  	     ...
 	  	  	  ]
 	   },
 		...
 	]
 	// the activities' info is grouped by user's id, and sorted by its start time
+	// (description is limited to 200 words)
 };
 
 
-function: activityAction!invite.action
+function: calendarAction!invite.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -319,13 +379,16 @@ output :{
 };
 
 
-function: activityAction!attendActivity.action
+function: calendarAction!attendActivity.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
 };
 input :{
 	aid:	integer,	// the activity id
+	pt:	integer,	// privacyType, required. default = 8: accessible to my followers
+	gl:	string,		// grantedIdList, required when privacyType=5,6
+	
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
