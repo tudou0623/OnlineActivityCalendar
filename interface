@@ -192,7 +192,7 @@ output :{
 ------------------------------------------------------------------------------------------------------------------- -->
 
 
-function:activityAction!createAct.action
+function: activityAction!createActivity.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -216,6 +216,124 @@ output :{
 };
 
 
+function: activityAction!viewActivity.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,	// the activity id
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+	isCreator: bool,
+	title:	string,
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	cap:	integer,	// capacity, if not set, means infinite
+	pt:	integer,	// privacyType
+	gl:	string,		// grantedIdList, only creator can see this
+	pta:	integer,	// privacyTypeAttend
+	gla:	string,		// grantedIdListAttend, only creator can see this
+	desc:	string,		// description
+	lid:	integer,	// location Id
+	lname:  string,		// location name
+};
+
+
+function: activityAction!reviseActivity.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,		// the id of this activity u wanna revise
+	title:	string,			// required
+	st:	timestamp,		// start time, required
+	et:	timestamp,		// end time, required
+	cap:	integer,		// capacity, if not set, means infinite
+	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:	string,			// grantedIdList, required when privacyType=5,6
+	pta:	integer,		// privacyTypeAttend, required. default = 1
+	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
+	desc:	string,			// description
+	lid:	integer			// locationId, required when location is set or changed	
+};
+output :{
+	result: integer,	// 0 for success, 1 for revise activity denied, 
+				// 2 for error lid, 3 for internal error
+};
+
+
+
+function: activityAction!getUsersActivities.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	idList: string,		// the user IDs of the calender u wanna get ( splitted by "," )
+	view:	string,		// view type( Day/Week/Month ), format: D/W/M
+	date:	string		// the date or the first day of the week/month, format:08/30/2013
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
+	actList:  
+	[  
+	   { 
+	  	uid: 	  integer, 
+	    	actList:  [  {  aid: integer, title: string,  cap: integer, st: timestamp, 
+	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     {  aid: integer, title: string,  cap: integer, st: timestamp, 
+	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     ...
+	  	  	  ]
+	   },
+	   
+	   { 
+	  	uid: 	  integer, 
+	    	actList:  [  {  aid: integer, title: string,  cap: integer, st: timestamp, 
+	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     {  aid: integer, title: string,  cap: integer, st: timestamp, 
+	  	  		et: timestamp, location: string, lid: integer, desc: string },
+	  	  	     ...
+	  	  	  ]
+	   },
+		...
+	]
+	// the activities' info is grouped by user's id, and sorted by its start time
+};
+
+
+function: activityAction!invite.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,	// the activity id
+	idList:	string,		// the user IDs of the users u wanna invite ( splitted by "," )
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+};
+
+
+function: activityAction!attendActivity.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,	// the activity id
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+};
+
+
+
+
 function: locAction!addLoaction.action
 post session : {		// posted by  browser
 	userLoginID: string,
@@ -232,6 +350,12 @@ output :{
 
 
 
+
+
+
+
+------------------------------------------------------------------------------------------------------------------- -->
+
 function : changeUserSetting
 input : {
 	username : string,
@@ -243,50 +367,15 @@ output : {
 
 
 function : userLogin
-input : {
-	username : string,
-	password : string
-};
-output : {
-	result : integer,
-	userID : integer
-};
-
-
 
 function : createEvent
-input : {
-	createUser : integer,
-	title : string,
-	//somemore
-};
-output : { result : integer };
-
 
 function : createInvite
-input : { userID : integer,
-	eventID : integer,
-	//somemore
-};
-output : { result : integer };
-
 
 function : followFriend
 
 function : unfollowFriend
 
-
 function : getUserCalendar
-input : {
-	currentUserID : integer,
-	queriedUserID : integer,
-	queriedDate : date
-};
-output : { eventList : [] };
 
 function : addEventToMyCalendar
-input : {
-	eventID : integer,
-	userID : integer
-};
-output : { result : integer };
