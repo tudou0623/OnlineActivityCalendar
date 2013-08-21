@@ -185,26 +185,49 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 2 for group name already exists, 3 for internal error
+	gid:	integer		// the id of this newly created group (-1 when failed)
 };
 
 
 ------------------------------------------------------------------------------------------------------------------- -->
 
 
-function:activityAction!create_act.action
+function:activityAction!createAct.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
 input :{
-	start_time:string(07/25/2013)
-	end_time:string(07/25/2013)
-	capacity:int
-	privacy:int
-	description:string
+	title:	string,			// required
+	st:	timestamp,		// start time, required
+	et:	timestamp,		// end time, required
+	cap:	integer,		// capacity, if not set, means infinite
+	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:	string,			// grantedIdList, required when privacyType=5,6
+	pta:	integer,		// privacyTypeAttend, required. default = 1
+	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
+	desc:	string,			// description
+	lid:	integer			// locationId, required when location is set	
 };
 output :{
-
+	result: integer,	// 0 for success, 1 for add activity denied, 
+				// 2 for error lid, 3 for internal error
+	aid:	integer		// the id of this newly created activity (-1 when failed)
 };
 
 
-
+function: locAction!addLoc.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	gname : string,		// the name of the new group u wanna add
+};
+output :{
+	result: integer,	// 0 for success, 2 for group name already exists, 3 for internal error
+	lid:	integer		// the id of this newly created location (-1 when failed)
+};
 
 
 
