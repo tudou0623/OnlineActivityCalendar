@@ -184,7 +184,7 @@ input :	{
 	gname : string,		// the name of the new group u wanna add
 };
 output :{
-	result: integer,	// 0 for success, 2 for group name already exists, 3 for internal error
+	result: integer,	// 0 for success, 2 for location already exists, 3 for internal error
 	gid:	integer		// the id of this newly created group (-1 when failed)
 };
 
