@@ -216,7 +216,7 @@ output :{
 };
 
 
-function: locAction!addLoc.action
+function: locAction!addLoaction.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -225,7 +225,8 @@ input :	{
 	gname : string,		// the name of the new group u wanna add
 };
 output :{
-	result: integer,	// 0 for success, 2 for location already exists, 3 for internal error
+	result: integer,	// 0 for success, 1 for location already exists, 
+				// 2 for parameter error, 3 for internal error
 	lid:	integer		// the id of this newly created location (-1 when failed)
 };
 
