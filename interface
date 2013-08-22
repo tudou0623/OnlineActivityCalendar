@@ -16,7 +16,7 @@ set session: {				// only when success, MUST be stored in browser.
 
 
 action : userAction!checkLoginStatus.action
-post session : {		// posted by  browser
+post session : {			// posted by  browser
 	userLoginID: string,
 	userID: integer
 };
@@ -85,10 +85,11 @@ input : {
 };
 output : {
 	count : long,		// total number of search results
-	userList: [  { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
-				 { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
+	userList: 
+		[  { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
+		   { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
 				...
-			  ]
+		]
 };
 
 
@@ -96,18 +97,19 @@ output : {
 function: userAction!getUserInfo.action
 post session : {		// posted by  browser
 	userLoginID: string,
-	userID: integer
+	userID: 	integer
 };
 input : {
-	uid:		// the id of the user whose info u wanna get
+	uid:		integer,	// the id of the user whose info u wanna get
 };
 output : {
-	result:		integer,	// 0 for success, 1 for access denied, 2 for error uid, 3 for internal error
+	result:		integer,	// 0 for success, 1 for access denied, 
+							// 2 for error uid, 3 for internal error
 	isCared:	bool,		// cared by u or not
 	// 公开信息
 	loginId:	integer,	// the user's loginId
 	uname:		string,		// userName (remarkName when cared and ramarkName set)
-	gender:		string,
+	gender:		string,		// M/F
 	regTime:	timestamp,	// 注册时间
 	pimgId:		integer,	// 用户头像ID
 	signature:	string,		// 个性签名
@@ -149,7 +151,8 @@ input : {
 	schName:	string,		// 学院名称
 };
 output : {
-	result:		integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+	result:		integer,	// 0 for success, 1 for access denied
+							// 2 for error parameter, 3 for internal error
 };
 
 
@@ -192,14 +195,15 @@ input : {
 	calGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
 };
 output : {
-	result:		integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+	result:		integer,	// 0 for success, 1 for access denied
+							// 2 for error parameter, 3 for internal error
 };
 
 
 function: careAction!getCareList.action
 post session : {		// posted by  browser
 	userLoginID: string,
-	userID: integer
+	userID: 	integer
 };
 input :	{
 	uid : integer,		// the userID of the care list you wanna get
@@ -207,13 +211,19 @@ input :	{
 output :{
 	result:    integer,	// 0 for success, 1 for access denied, 2 for no cares, 3 for internal error
 	careList:  
-	[  { groupName:string,  userlist: [{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] },
-	   { groupName:string,  userlist: [{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] },
+	[  
+		{ groupName:	string,  
+		  userlist: 
+			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] 
+		},
+		{ groupName:	string,  
+		  userlist: 
+			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] 
+		},
 		...
 	]
 	// the users' info is grouped by friendGroupName
 };
-
 
 
 function: careAction!getFollowerList.action
@@ -225,11 +235,13 @@ input :	{
 	uid : integer,		// the owner userID of the followers list you wanna get
 };
 output :{
-	result:    	integer,	// 0 for success, 1 for access denied, 2 for no followers, 3 for internal error
-	followerList:	[ { userID: integer, loginID:string, uname:string } ,
-			  { userID: integer, loginID:string, uname:string } ,
+	result:    	integer,	// 0 for success, 1 for access denied
+							// 2 for no followers, 3 for internal error
+	followerList:
+		[ 	{ userID: integer, loginID:string, uname:string } ,
+			{ userID: integer, loginID:string, uname:string } ,
 			  ...
-			]
+		]
 };
 
 
@@ -242,11 +254,13 @@ input :	{
 	uid : integer,		// the owner userID of the CareGroup list you wanna get
 };
 output :{
-	result:    	integer,	// 0 for success, 1 for access denied, 2 for no groups, 3 for internal error
-	caregroupList:	[ { groupID: integer, groupName:string } ,
-			  { groupID: integer, groupName:string } ,
+	result:    	integer,	// 0 for success, 1 for access denied
+							// 2 for no groups, 3 for internal error
+	caregroupList:	
+		[ 	{ groupID: integer, groupName:string } ,
+			{ groupID: integer, groupName:string } ,
 			  ...
-			]
+		]
 };
 
 
@@ -262,7 +276,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 1 for add care denied, 2 for no such person, 
-				// 3 for error gid, 4 for already cared, 5 for internal error
+						// 3 for error gid, 4 for already cared, 5 for internal error
 };
 
 
@@ -276,8 +290,9 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 2 for no such person, 
-				// 3 for not cared, 4 for internal error
+						// 3 for not cared, 4 for internal error
 };
+
 
 function: careAction!rejectCare.action
 post session : {		// posted by  browser
@@ -285,11 +300,11 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :	{
-	uid : integer,		// the user id of the person u reject care
+	uid : integer,		// the user id of the person u wanna reject care
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for no such person, 
-				// 3 for not cared, 4 for internal error
+						// 3 for not cared, 4 for internal error
 };
 
 
@@ -317,7 +332,8 @@ input :	{
 	gname : string,		// the new name of the group
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+	result: integer,	// 0 for success, 1 for access denied
+						// 2 for error parameter, 3 for internal error
 };
 
 
@@ -330,7 +346,8 @@ input :	{
 	gid:	integer		// the id of this group u wanna delete
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for error gid, 3 for internal error
+	result: integer,	// 0 for success, 1 for access denied
+						// 2 for error gid, 3 for internal error
 };
 
 
@@ -340,25 +357,25 @@ output :{
 function: activityAction!createActivity.action
 post session : {		// posted by  browser
 	userLoginID: string,
-	userID: integer
+	userID: 	integer
 };
 input :{
 	title:	string,			// required
 	tag:	string,			// required
-	st:	timestamp,		// start time, required
-	et:	timestamp,		// end time, required
+	st:		timestamp,		// start time, required
+	et:		timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
-	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
-	gl:	string,			// grantedIdList, required when privacyType=5,6
+	pt:		integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:		string,			// grantedIdList, required when privacyType=5,6
 	pta:	integer,		// privacyTypeAttend, required. default = 1
 	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
 	desc:	string,			// description
 	lid:	integer			// locationId, required when location is set	
 };
 output :{
-	result: integer,	// 0 for success, 1 for add activity denied, 
-				// 2 for error lid, 3 for internal error
-	aid:	integer		// the id of this newly created activity (-1 when failed)
+	result: integer,		// 0 for success, 1 for add activity denied, 
+							// 2 for error lid, 3 for internal error
+	aid:	integer			// the id of this newly created activity (-1 when failed)
 };
 
 
@@ -371,7 +388,8 @@ input :{
 	aid:	integer,	// the activity id
 };
 output :{
-	result: integer,		// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+	result: integer,		// 0 for success, 1 for access denied
+							// 2 for error aid, 3 for internal error
 	isAttend: bool,			// whether the viewer attends this activity
 	creatorLoginId:	string,	// the creator's loginID
 	creatorName:	string,	// the creator's name ( remarkName when cared and remarkName set )
@@ -425,7 +443,8 @@ input :{
 	aid:	integer,		// the id of this activity u wanna delete
 };
 output :{
-	result: integer,	// 0 for success, 1 for delete activity denied, 2 for error aid, 3 for internal error
+	result: integer,	// 0 for success, 1 for delete activity denied
+						// 2 for error aid, 3 for internal error
 };
 
 
@@ -447,12 +466,13 @@ input : {
 };
 output : {
 	count : long,		// total number of search results
-	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-				 {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-	  	  	     ...
-	  	  ]
+	actList:  
+	[ {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  	  	...
+	]
 	// return all the public activities (description is limited to 500 words)
 };
 
@@ -479,29 +499,32 @@ input :{
 	pid:	integer		// selected page number
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
+	result: integer,	// 0 for success, 1 for access denied
+						// 2 for no activities, 3 for internal error
 	count : long,		// total number of search results
 	resultList:  
 	[  
-	   { 
+	 { 
 	  	uid: 	  integer, 
-	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					...
-	  	  ]
-	   },
+	    actList:  
+		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+		  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+			...
+	  	]
+	 },
 	   
-	   { 
+	 { 
 	  	uid: 	  integer, 
-	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					...
-	  	  ]
-	   },
+	    actList:  
+		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+		  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+			...
+	  	]
+	 },
 		...
 	]
 	// the activities' info is grouped by user's id
@@ -529,12 +552,13 @@ input :{
 output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
 	count : long,		// total number of search results
-	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-				 {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-	  	  	     ...
-	  	  ]
+	actList:  
+	[ {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  	  	...
+	]
 	// return all the public activities (description is limited to 500 words)
 	// (description is limited to 500 words)
 };
@@ -604,7 +628,8 @@ input :{
 	uid:	integer,	// the id of the user u wanna reject
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for invalid parameter, 3 for internal error
+	result: integer,	// 0 for success, 1 for access denied
+						// 2 for invalid parameter, 3 for internal error
 };
 
 // 搜索好友参加的活动日程（经过权限验证）
@@ -628,25 +653,27 @@ output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
 	resultList:  
 	[  
-	   { 
+	 { 
 	  	uid: 	  integer, 
-	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					...
-	  	  ]
-	   },
+	    actList:  
+		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+		  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+			...
+	  	]
+	 },
 	   
-	   { 
+	 { 
 	  	uid: 	  integer, 
-	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
-						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
-					...
-	  	  ]
-	   },
+	    actList:  
+		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+		  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+			...
+	  	]
+	 },
 		...
 	]
 	// the activities' info is grouped by user's id
@@ -689,7 +716,8 @@ input :{
 	setCurr:	bool,		// if u like to set it as current portrait	
 };
 output :{
-	result: integer,	// 0 for success, 1 for upload denied, 2 for invalid parameter, 3 for internal error
+	result: integer,	// 0 for success, 1 for upload denied
+						// 2 for invalid parameter, 3 for internal error
 	imgId:	integer		// the id of this newly uploaded image (-1 when failed)
 };
 
@@ -703,7 +731,8 @@ input :{
 	uid:		integer,	// id of the user whose portrait u wanna get
 };
 output :{
-	result: 	integer,	// 0 for success, 1 for access denied, 2 for error uid, 3 for internal error
+	result: 	integer,	// 0 for success, 1 for access denied
+							// 2 for error uid, 3 for internal error
 	imgName:	string,
 	descr:		string,		// description
 	img:		blob,		// img data
@@ -724,7 +753,8 @@ input :{
 	setCurr:	bool,		// 是否设为当前头像
 };
 output :{
-	result: integer,	// 0 for success, 1 for revise denied, 2 for invalid parameter, 3 for internal error
+	result: integer,	// 0 for success, 1 for revise denied
+						// 2 for invalid parameter, 3 for internal error
 };
 
 function: userAction!deleteUserPortrait.action
@@ -736,7 +766,8 @@ input :{
 	imgId:		integer,	// id of the image u wanna delete
 };
 output :{
-	result: integer,	// 0 for success, 1 for delete denied, 2 for invalid imgId, 3 for internal error
+	result: integer,	// 0 for success, 1 for delete denied
+						// 2 for invalid imgId, 3 for internal error
 };
 
 
