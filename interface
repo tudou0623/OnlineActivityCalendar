@@ -5,11 +5,11 @@ input : {
 };
 output : {
 	userLoginID: string,	// -1 when failed
-	result : integer,	// 200
-	sessionID: string,	// "0" when failed
-	userID : integer	// -1 when failed
+	result : integer,		// 200
+	sessionID: string,		// "0" when failed
+	userID : integer		// -1 when failed
 };
-set session: {			// only when success, MUST be stored in browser.
+set session: {				// only when success, MUST be stored in browser.
 	userLoginID: string,
 	userID: integer
 };
@@ -29,17 +29,17 @@ output : {
 function : userAction!register.action
 input : {
 	userLoginID : string,	// required
-	password : string,	// required
-	nickname : string,	// required
-	email : string,		// required
+	password : string,		// required
+	nickname : string,		// required
+	email : string,			// required
 };
 output : {
 	userLoginID: string,	// -1 when failed
-	result : integer,	// 200
-	sessionID: string,	// "0" when failed
-	userID : integer	// -1 when failed
+	result : integer,		// 200
+	sessionID: string,		// "0" when failed
+	userID : integer		// -1 when failed
 };
-set session: {			// only when success, MUST stored in browser
+set session: {				// only when success, MUST stored in browser
 	userLoginID: string,
 	userID: integer
 };
@@ -85,12 +85,115 @@ input : {
 };
 output : {
 	count : long,		// total number of search results
-	userList: [  { userID: integer, loginID:string, gender:string(M/F), signature:string } ,
-		     { userID: integer, loginID:string, gender:string(M/F), signature:string } ,
-			...
-		  ]
+	userList: [  { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
+				 { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
+				...
+			  ]
 };
 
+
+// 获取用户基本信息（验证权限）
+function: userAction!getUserInfo.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	uid:		// the id of the user whose info u wanna get
+};
+output : {
+	result:		integer,	// 0 for success, 1 for access denied, 2 for error uid, 3 for internal error
+	isCared:	bool,		// cared by u or not
+	// 公开信息
+	loginId:	integer,	// the user's loginId
+	uname:		string,		// userName (remarkName when cared and ramarkName set)
+	gender:		string,
+	regTime:	timestamp,	// 注册时间
+	pimgId:		integer,	// 用户头像ID
+	signature:	string,		// 个性签名
+	grade:		integer,	// 等级
+	isOnline:	bool,
+	isV:		bool,		// 是否加V用户
+	
+	// 需访问权限信息
+	score:		integer, 	// 积分
+	money:		integer,	// 金钱
+	email:		string,
+	phone:		string,
+	fetion:		string,
+	uniId:		integer,	// 学校ID
+	uniName:	string,		// 学校名称
+	schId:		integer,	// 学院ID
+	schName:	string,		// 学院名称
+	
+};
+
+
+// 修改用户基本信息（验证权限）
+function: userAction!getUserInfo.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	// 可修改信息(if the field not changed, don't send it)
+	uname:		string,		// userName
+	gender:		string,		// 格式(M/F)
+	signature:	string,		// 个性签名
+	email:		string,
+	phone:		string,
+	fetion:		string,
+	uniId:		integer,	// 学校ID
+	uniName:	string,		// 学校名称
+	schId:		integer,	// 学院ID
+	schName:	string,		// 学院名称
+};
+output : {
+	result:		integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+};
+
+
+// 获取用户权限设置信息
+function: userAction!getPrivacySettings.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+output : {
+	result:		integer,	// 0 for success, 1 for access denied, 3 for internal error
+	// userInfo privacy
+	infoPt:		integer,	// userInfo privacyType
+	infoGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+	// 好友列表 privacy
+	frliPt:		integer,	// 好友列表 privacyType
+	frliGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+	// calendar privacy
+	calPt:		integer,	// calendar privacyType
+	calGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+};
+
+
+// 设置权限
+function: userAction!setPrivacySettings.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	// 可修改信息(if the field not changed, don't send it)
+	// userInfo privacy
+	infoPt:		integer,	// userInfo privacyType
+	infoGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+	// 好友列表 privacy
+	frliPt:		integer,	// 好友列表 privacyType
+	frliGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+	// calendar privacy
+	calPt:		integer,	// calendar privacyType
+	calGl:		string,		// 允许访问的用户loginIDs或者分组名（以逗号分隔）
+};
+output : {
+	result:		integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+};
 
 
 function: careAction!getCareList.action
@@ -104,8 +207,8 @@ input :	{
 output :{
 	result:    integer,	// 0 for success, 1 for access denied, 2 for no cares, 3 for internal error
 	careList:  
-	[  { groupName:string,  userlist: [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] },
-	   { groupName:string,  userlist: [{ userID: xxx, loginID:xxx, remarkName:xxx, doDisplay:xxx},..., ] },
+	[  { groupName:string,  userlist: [{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] },
+	   { groupName:string,  userlist: [{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] },
 		...
 	]
 	// the users' info is grouped by friendGroupName
@@ -123,8 +226,8 @@ input :	{
 };
 output :{
 	result:    	integer,	// 0 for success, 1 for access denied, 2 for no followers, 3 for internal error
-	followerList:	[ { userID: xxx, loginID:xxx } ,
-			  { userID: xxx, loginID:xxx } ,
+	followerList:	[ { userID: integer, loginID:string, uname:string } ,
+			  { userID: integer, loginID:string, uname:string } ,
 			  ...
 			]
 };
@@ -140,8 +243,8 @@ input :	{
 };
 output :{
 	result:    	integer,	// 0 for success, 1 for access denied, 2 for no groups, 3 for internal error
-	caregroupList:	[ { groupID: xxx, groupName:xxx } ,
-			  { groupID: xxx, groupName:xxx } ,
+	caregroupList:	[ { groupID: integer, groupName:string } ,
+			  { groupID: integer, groupName:string } ,
 			  ...
 			]
 };
@@ -176,6 +279,19 @@ output :{
 				// 3 for not cared, 4 for internal error
 };
 
+function: careAction!rejectCare.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	uid : integer,		// the user id of the person u reject care
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for no such person, 
+				// 3 for not cared, 4 for internal error
+};
+
 
 function: careAction!addFriendGroup.action
 post session : {		// posted by  browser
@@ -188,6 +304,33 @@ input :	{
 output :{
 	result: integer,	// 0 for success, 2 for group name already exists, 3 for internal error
 	gid:	integer		// the id of this newly created group (-1 when failed)
+};
+
+
+function: careAction!reviseFriendGroup.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	gid:	integer		// the id of this group u wanna revise
+	gname : string,		// the new name of the group
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error parameter, 3 for internal error
+};
+
+
+function: careAction!deleteFriendGroup.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :	{
+	gid:	integer		// the id of this group u wanna delete
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error gid, 3 for internal error
 };
 
 
@@ -228,20 +371,22 @@ input :{
 	aid:	integer,	// the activity id
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
-	isCreator: bool,
+	result: integer,		// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+	isAttend: bool,			// whether the viewer attends this activity
+	creatorLoginId:	string,	// the creator's loginID
+	creatorName:	string,	// the creator's name ( remarkName when cared and remarkName set )
 	title:	string,
 	tag:	string,
-	st:	timestamp,	// start time
-	et:	timestamp,	// end time
-	cap:	integer,	// capacity, if not set, means infinite
-	pt:	integer,	// privacyType
-	gl:	string,		// grantedIdList, only creator can see this
-	pta:	integer,	// privacyTypeAttend
-	gla:	string,		// grantedIdListAttend, only creator can see this
-	desc:	string,		// description
-	lid:	integer,	// location Id
-	lname:  string,		// location name
+	st:	timestamp,			// start time
+	et:	timestamp,			// end time
+	cap:	integer,		// capacity, if not set, means infinite
+	pt:	integer,			// privacyType
+	gl:	string,				// grantedIdList, only creator can see this
+	pta:	integer,		// privacyTypeAttend
+	gla:	string,			// grantedIdListAttend, only creator can see this
+	desc:	string,			// description
+	lid:	integer,		// location Id
+	lname:  string,			// location name
 };
 
 
@@ -252,13 +397,14 @@ post session : {		// posted by  browser
 };
 input :{
 	aid:	integer,		// the id of this activity u wanna revise
+	// 可修改信息(if the field not changed, don't send it)
 	title:	string,			// required
 	tag:	string,			// required
-	st:	timestamp,		// start time, required
-	et:	timestamp,		// end time, required
+	st:		timestamp,		// start time, required
+	et:		timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
-	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
-	gl:	string,			// grantedIdList, required when privacyType=5,6
+	pt:		integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:		string,			// grantedIdList, required when privacyType=5,6
 	pta:	integer,		// privacyTypeAttend, required. default = 1
 	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
 	desc:	string,			// description
@@ -270,102 +416,131 @@ output :{
 };
 
 
-function: activityAction!searchByTitle.action
-post session : {		// posted by  browser
-	userLoginID: string,
-	userID: integer
-};
-input : {
-	title:	string,		// required
-	tag:	string,		// activity type not limited if not provided 
-	st:	timestamp,	// start time
-	et:	timestamp,	// end time
-	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
-	asc:	bool,		// true for asc, false for desc
-	psize:	integer,	// page size
-	pid:	integer		// selected page number
-};
-output : {
-	count : long,		// total number of search results
-	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     ...
-	  	  ]
-	// return all the public activities (description is limited to 500 words)
-};
-
-
-function: activityAction!searchByTitle.action
-post session : {		// posted by  browser
-	userLoginID: string,
-	userID: integer
-};
-input : {
-	title:	string,		// required
-	tag:	string,		// activity type not limited if not provided 
-	st:	timestamp,	// start time
-	et:	timestamp,	// end time
-	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
-	asc:	bool,		// true for asc, false for desc
-	psize:	integer,	// page size
-	pid:	integer		// selected page number
-};
-output : {
-	count : long,		// total number of search results
-	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     ...
-	  	  ]
-	// return all the public activities (description is limited to 500 words)
-};
-
-
-
-function: calendarAction!getUsersActivities.action
+function: activityAction!deleteActivity.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
 };
 input :{
-	idList: string,		// the user IDs of the calender u wanna get ( splitted by "," )
-	view:	string,		// view type( Day/Week/Month ), format: D/W/M
-	date:	string		// the date or the first day of the week/month, format:08/30/2013
+	aid:	integer,		// the id of this activity u wanna delete
+};
+output :{
+	result: integer,	// 0 for success, 1 for delete activity denied, 2 for error aid, 3 for internal error
+};
+
+
+// 搜索全网公开活动
+function: activityAction!searchByTitle.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input : {
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided 
+	st:	timestamp,		// start time
+	et:	timestamp,		// end time
+	sb:	string,			// sort by "publishTime/startTime/endTime/creatorGrade"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size
+	pid:	integer		// selected page number
+};
+output : {
+	count : long,		// total number of search results
+	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+				 {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  	  	     ...
+	  	  ]
+	// return all the public activities (description is limited to 500 words)
+};
+
+
+// not implemented yet
+function: activityAction!searchByDescription.action
+
+
+// 搜索好友发布的活动（经过权限验证，按好友id分组）
+function: activityAction!searchUserActivitiesByTitle.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	idList: string,		// the creators' IDs of the activity u wanna get ( splitted by "," )
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided
+	st:	timestamp,		// start time
+	et:	timestamp,		// end time
+	sb:	string,			// sort by "publishTime/startTime/endTime"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size(if not set, return all)
+	pid:	integer		// selected page number
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
-	actList:  
+	count : long,		// total number of search results
+	resultList:  
 	[  
 	   { 
 	  	uid: 	  integer, 
-	    	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     ...
-	  	  	  ]
+	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					...
+	  	  ]
 	   },
 	   
 	   { 
 	  	uid: 	  integer, 
-	    	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, 
-	  	  			et: timestamp, location: string, lid: integer, desc: string },
-	  	  	     ...
-	  	  	  ]
+	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					...
+	  	  ]
 	   },
 		...
 	]
-	// the activities' info is grouped by user's id, and sorted by its start time
-	// (description is limited to 200 words)
+	// the activities' info is grouped by user's id
+	// (description is limited to 500 words)
 };
 
 
-function: calendarAction!invite.action
+// 搜索好友发布的活动（经过权限验证，不分组）
+function: activityAction!searchUserActivitiesByTitleSimple.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	idList: string,		// the creators' IDs of the activity u wanna get ( splitted by "," )
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided
+	st:	timestamp,		// start time
+	et:	timestamp,		// end time
+	sb:	string,			// sort by "publishTime/startTime/endTime"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size(if not set, return all)
+	pid:	integer		// selected page number
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
+	count : long,		// total number of search results
+	actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+				 {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+					location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+	  	  	     ...
+	  	  ]
+	// return all the public activities (description is limited to 500 words)
+	// (description is limited to 500 words)
+};
+
+
+function: inviteAction!invite.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -375,11 +550,23 @@ input :{
 	idList:	string,		// the user IDs of the users u wanna invite ( splitted by "," )
 };
 output :{
-	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+	result: integer,	// 0 for success, 1 for invite denied, 2 for error aid, 3 for internal error
+};
+
+function: inviteAction!refuse.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	iid:	integer,	// the invitation id
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error iid, 3 for internal error
 };
 
 
-function: calendarAction!attendActivity.action
+function: attendAction!attendActivity.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
@@ -394,6 +581,77 @@ output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
 };
 
+function: attendAction!quitActivity.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,	// the activity id
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for error aid, 3 for internal error
+};
+
+
+function: attendAction!rejectAttendByCreator.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	aid:	integer,	// the activity id
+	uid:	integer,	// the id of the user u wanna reject
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for invalid parameter, 3 for internal error
+};
+
+// 搜索好友参加的活动日程（经过权限验证）
+function: attendAction!getUserCalendar.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	idList: string,		// required. the IDs of the users whose calendar u wanna get ( splitted by "," )
+	title:	string,		// required
+	tag:	string,		// activity type not limited if not provided
+	st:	timestamp,		// start time
+	et:	timestamp,		// end time
+	sb:	string,			// sort by "publishTime/startTime/endTime"
+	asc:	bool,		// true for asc, false for desc
+	psize:	integer,	// page size
+	pid:	integer		// selected page number
+};
+output :{
+	result: integer,	// 0 for success, 1 for access denied, 2 for no activities, 3 for internal error
+	resultList:  
+	[  
+	   { 
+	  	uid: 	  integer, 
+	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					...
+	  	  ]
+	   },
+	   
+	   { 
+	  	uid: 	  integer, 
+	    actList:  [  {  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					{  aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
+						location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
+					...
+	  	  ]
+	   },
+		...
+	]
+	// the activities' info is grouped by user's id
+	// (description is limited to 500 words)
+};
 
 
 
@@ -418,16 +676,74 @@ output :{
 
 
 ------------------------------------------------------------------------------------------------------------------- -->
+// 图像操作
+function: userAction!uploadUserPortrait.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	imgName:	string,
+	descr:		string,		// description
+	img:		blob,		// img data
+	setCurr:	bool,		// if u like to set it as current portrait	
+};
+output :{
+	result: integer,	// 0 for success, 1 for upload denied, 2 for invalid parameter, 3 for internal error
+	imgId:	integer		// the id of this newly uploaded image (-1 when failed)
+};
 
+
+function: userAction!getUserPortrait.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	uid:		integer,	// id of the user whose portrait u wanna get
+};
+output :{
+	result: 	integer,	// 0 for success, 1 for access denied, 2 for error uid, 3 for internal error
+	imgName:	string,
+	descr:		string,		// description
+	img:		blob,		// img data
+};
+
+
+function: userAction!reviseUserPortrait.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	// 可修改信息(if the field not changed, don't send it)
+	imgId:		integer,	// id of the image u wanna revise
+	imgName:	string,
+	descr:		string,		// description
+	img:		blob,		// img data
+	setCurr:	bool,		// 是否设为当前头像
+};
+output :{
+	result: integer,	// 0 for success, 1 for revise denied, 2 for invalid parameter, 3 for internal error
+};
+
+function: userAction!deleteUserPortrait.action
+post session : {		// posted by  browser
+	userLoginID: string,
+	userID: integer
+};
+input :{
+	imgId:		integer,	// id of the image u wanna delete
+};
+output :{
+	result: integer,	// 0 for success, 1 for delete denied, 2 for invalid imgId, 3 for internal error
+};
+
+
+
+
+------------------------------------------------------------------------------------------------------------------- -->
 function : changeUserSetting
-input : {
-	username : string,
-	//somemore
-};
-output : {
-	result : integer
-};
-
 
 function : userLogin
 
