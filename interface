@@ -4,7 +4,7 @@ input : {
 	password : string	   	 
 };
 output : {
-	userLoginID: string,	// -1 when failed
+	userLoginID: string,		// -1 when failed
 	result : integer,		// 200
 	sessionID: string,		// "0" when failed
 	userID : integer		// -1 when failed
@@ -28,13 +28,13 @@ output : {
 
 function : userAction!register.action
 input : {
-	userLoginID : string,	// required
+	userLoginID : string,		// required
 	password : string,		// required
 	nickname : string,		// required
 	email : string,			// required
 };
 output : {
-	userLoginID: string,	// -1 when failed
+	userLoginID: string,		// -1 when failed
 	result : integer,		// 200
 	sessionID: string,		// "0" when failed
 	userID : integer		// -1 when failed
@@ -104,7 +104,7 @@ input : {
 };
 output : {
 	result:		integer,	// 0 for success, 1 for access denied, 
-							// 2 for error uid, 3 for internal error
+					// 2 for error uid, 3 for internal error
 	isCared:	bool,		// cared by u or not
 	// 公开信息
 	loginId:	integer,	// the user's loginId
@@ -152,7 +152,7 @@ input : {
 };
 output : {
 	result:		integer,	// 0 for success, 1 for access denied
-							// 2 for error parameter, 3 for internal error
+					// 2 for error parameter, 3 for internal error
 };
 
 
@@ -196,7 +196,7 @@ input : {
 };
 output : {
 	result:		integer,	// 0 for success, 1 for access denied
-							// 2 for error parameter, 3 for internal error
+					// 2 for error parameter, 3 for internal error
 };
 
 
@@ -232,11 +232,11 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :	{
-	uid : integer,		// the owner userID of the followers list you wanna get
+	uid : integer,			// the owner userID of the followers list you wanna get
 };
 output :{
 	result:    	integer,	// 0 for success, 1 for access denied
-							// 2 for no followers, 3 for internal error
+					// 2 for no followers, 3 for internal error
 	followerList:
 		[ 	{ userID: integer, loginID:string, uname:string } ,
 			{ userID: integer, loginID:string, uname:string } ,
@@ -255,7 +255,7 @@ input :	{
 };
 output :{
 	result:    	integer,	// 0 for success, 1 for access denied
-							// 2 for no groups, 3 for internal error
+					// 2 for no groups, 3 for internal error
 	caregroupList:	
 		[ 	{ groupID: integer, groupName:string } ,
 			{ groupID: integer, groupName:string } ,
@@ -276,7 +276,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 1 for add care denied, 2 for no such person, 
-						// 3 for error gid, 4 for already cared, 5 for internal error
+				// 3 for error gid, 4 for already cared, 5 for internal error
 };
 
 
@@ -290,7 +290,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 2 for no such person, 
-						// 3 for not cared, 4 for internal error
+				// 3 for not cared, 4 for internal error
 };
 
 
@@ -304,7 +304,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied, 2 for no such person, 
-						// 3 for not cared, 4 for internal error
+				// 3 for not cared, 4 for internal error
 };
 
 
@@ -335,7 +335,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied
-						// 2 for error parameter, 3 for internal error
+				// 2 for error parameter, 3 for internal error
 };
 
 
@@ -351,7 +351,7 @@ input :	{
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied
-						// 2 for error gid, 3 for internal error
+				// 2 for error gid, 3 for internal error
 };
 
 
@@ -366,11 +366,11 @@ post session : {		// posted by  browser
 input :{
 	title:	string,			// required
 	tag:	string,			// required
-	st:		timestamp,		// start time, required
-	et:		timestamp,		// end time, required
+	st:	timestamp,		// start time, required
+	et:	timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
-	pt:		integer,		// privacyType, required. default = 1: accessible to all registered users
-	gl:		string,			// grantedIdList, required when privacyType=5,6
+	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:	string,			// grantedIdList, required when privacyType=5,6
 	pta:	integer,		// privacyTypeAttend, required. default = 1
 	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
 	desc:	string,			// description
@@ -378,7 +378,7 @@ input :{
 };
 output :{
 	result: integer,		// 0 for success, 1 for add activity denied, 
-							// 2 for error lid, 3 for internal error
+					// 2 for error lid, 3 for internal error
 	aid:	integer			// the id of this newly created activity (-1 when failed)
 };
 
@@ -393,17 +393,17 @@ input :{
 };
 output :{
 	result: integer,		// 0 for success, 1 for access denied
-							// 2 for error aid, 3 for internal error
+					// 2 for error aid, 3 for internal error
 	isAttend: bool,			// whether the viewer attends this activity
-	creatorLoginId:	string,	// the creator's loginID
-	creatorName:	string,	// the creator's name ( remarkName when cared and remarkName set )
+	creatorLoginId:	string,		// the creator's loginID
+	creatorName:	string,		// the creator's name ( remarkName when cared and remarkName set )
 	title:	string,
 	tag:	string,
-	st:	timestamp,			// start time
-	et:	timestamp,			// end time
+	st:	timestamp,		// start time
+	et:	timestamp,		// end time
 	cap:	integer,		// capacity, if not set, means infinite
-	pt:	integer,			// privacyType
-	gl:	string,				// grantedIdList, only creator can see this
+	pt:	integer,		// privacyType
+	gl:	string,			// grantedIdList, only creator can see this
 	pta:	integer,		// privacyTypeAttend
 	gla:	string,			// grantedIdListAttend, only creator can see this
 	desc:	string,			// description
@@ -422,11 +422,11 @@ input :{
 	// 可修改信息(if the field not changed, don't send it)
 	title:	string,			// required
 	tag:	string,			// required
-	st:		timestamp,		// start time, required
-	et:		timestamp,		// end time, required
+	st:	timestamp,		// start time, required
+	et:	timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
-	pt:		integer,		// privacyType, required. default = 1: accessible to all registered users
-	gl:		string,			// grantedIdList, required when privacyType=5,6
+	pt:	integer,		// privacyType, required. default = 1: accessible to all registered users
+	gl:	string,			// grantedIdList, required when privacyType=5,6
 	pta:	integer,		// privacyTypeAttend, required. default = 1
 	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
 	desc:	string,			// description
@@ -444,11 +444,11 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :{
-	aid:	integer,		// the id of this activity u wanna delete
+	aid:	integer,	// the id of this activity u wanna delete
 };
 output :{
 	result: integer,	// 0 for success, 1 for delete activity denied
-						// 2 for error aid, 3 for internal error
+				// 2 for error aid, 3 for internal error
 };
 
 
@@ -461,9 +461,9 @@ post session : {		// posted by  browser
 input : {
 	title:	string,		// required
 	tag:	string,		// activity type not limited if not provided 
-	st:	timestamp,		// start time
-	et:	timestamp,		// end time
-	sb:	string,			// sort by "publishTime/startTime/endTime/creatorGrade"
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
 	asc:	bool,		// true for asc, false for desc
 	psize:	integer,	// page size
 	pid:	integer		// selected page number
@@ -492,24 +492,24 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :{
-	idList: string,		// the creators' IDs of the activity u wanna get ( splitted by "," )
+	idList: jsonIntArray,	// required. the creators' IDs of the activity u wanna get
 	title:	string,		// required
 	tag:	string,		// activity type not limited if not provided
-	st:	timestamp,		// start time
-	et:	timestamp,		// end time
-	sb:	string,			// sort by "publishTime/startTime/endTime"
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime"
 	asc:	bool,		// true for asc, false for desc
 	psize:	integer,	// page size(if not set, return all)
 	pid:	integer		// selected page number
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied
-						// 2 for no activities, 3 for internal error
+				// 2 for no activities, 3 for internal error
 	count : long,		// total number of search results
 	resultList:  
 	[  
 	 { 
-	  	uid: 	  integer, 
+	    uid: 	  integer, 
 	    actList:  
 		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
 			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
@@ -520,7 +520,7 @@ output :{
 	 },
 	   
 	 { 
-	  	uid: 	  integer, 
+	    uid: 	  integer, 
 	    actList:  
 		[ { aid: integer, title: string, tag: string, cap: integer, st: timestamp, et: timestamp, 
 			  location: string, lid: integer, desc: string, creatorloginId: integer, creatorName:string },
@@ -543,12 +543,12 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :{
-	idList: string,		// the creators' IDs of the activity u wanna get ( splitted by "," )
+	idList: jsonIntArray,	// required. the creators' IDs of the activity u wanna get
 	title:	string,		// required
 	tag:	string,		// activity type not limited if not provided
-	st:	timestamp,		// start time
-	et:	timestamp,		// end time
-	sb:	string,			// sort by "publishTime/startTime/endTime"
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime"
 	asc:	bool,		// true for asc, false for desc
 	psize:	integer,	// page size(if not set, return all)
 	pid:	integer		// selected page number
@@ -575,7 +575,7 @@ post session : {		// posted by  browser
 };
 input :{
 	aid:	integer,	// the activity id
-	idList:	string,		// the user IDs of the users u wanna invite ( splitted by "," )
+	idList: jsonIntArray,	// the creators' IDs of the activity u wanna get
 };
 output :{
 	result: integer,	// 0 for success, 1 for invite denied, 2 for error aid, 3 for internal error
@@ -633,7 +633,7 @@ input :{
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied
-						// 2 for invalid parameter, 3 for internal error
+				// 2 for invalid parameter, 3 for internal error
 };
 
 // 搜索好友参加的活动日程（经过权限验证）
@@ -643,12 +643,12 @@ post session : {		// posted by  browser
 	userID: integer
 };
 input :{
-	idList: string,		// required. the IDs of the users whose calendar u wanna get ( splitted by "," )
+	idList: jsonIntArray,	// required. user IDs of cared whose calendar u wanna get
 	title:	string,		// required
 	tag:	string,		// activity type not limited if not provided
-	st:	timestamp,		// start time
-	et:	timestamp,		// end time
-	sb:	string,			// sort by "publishTime/startTime/endTime"
+	st:	timestamp,	// start time
+	et:	timestamp,	// end time
+	sb:	string,		// sort by "publishTime/startTime/endTime"
 	asc:	bool,		// true for asc, false for desc
 	psize:	integer,	// page size
 	pid:	integer		// selected page number
@@ -721,7 +721,7 @@ input :{
 };
 output :{
 	result: integer,	// 0 for success, 1 for upload denied
-						// 2 for invalid parameter, 3 for internal error
+				// 2 for invalid parameter, 3 for internal error
 	imgId:	integer		// the id of this newly uploaded image (-1 when failed)
 };
 
@@ -736,7 +736,7 @@ input :{
 };
 output :{
 	result: 	integer,	// 0 for success, 1 for access denied
-							// 2 for error uid, 3 for internal error
+					// 2 for error uid, 3 for internal error
 	imgName:	string,
 	descr:		string,		// description
 	img:		blob,		// img data
@@ -758,7 +758,7 @@ input :{
 };
 output :{
 	result: integer,	// 0 for success, 1 for revise denied
-						// 2 for invalid parameter, 3 for internal error
+				// 2 for invalid parameter, 3 for internal error
 };
 
 function: userAction!deleteUserPortrait.action
@@ -771,7 +771,7 @@ input :{
 };
 output :{
 	result: integer,	// 0 for success, 1 for delete denied
-						// 2 for invalid imgId, 3 for internal error
+				// 2 for invalid imgId, 3 for internal error
 };
 
 
