@@ -322,6 +322,8 @@ output :{
 };
 
 
+
+// 更改分组名称（默认分组不可改名）
 function: careAction!reviseFriendGroup.action
 post session : {		// posted by  browser
 	userLoginID: string,
@@ -337,13 +339,15 @@ output :{
 };
 
 
+// 删除分组（默认分组不可删除）
 function: careAction!deleteFriendGroup.action
 post session : {		// posted by  browser
 	userLoginID: string,
 	userID: integer
 };
 input :	{
-	gid:	integer		// the id of this group u wanna delete
+	gid:	integer,	// the id of this group u wanna delete
+	delCare: bool		// 是否连同删除分组内的所有关注？
 };
 output :{
 	result: integer,	// 0 for success, 1 for access denied
