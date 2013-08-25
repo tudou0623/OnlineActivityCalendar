@@ -372,7 +372,8 @@ post session : {		// posted by  browser
 };
 input :{
 	title:	string,			// required
-	tag:	string,			// required
+	tag:	string,			// required（活动标签/类型）
+	remark: string,			// 备注信息
 	st:	timestamp,		// start time, required
 	et:	timestamp,		// end time, required
 	cap:	integer,		// capacity, if not set, means infinite
