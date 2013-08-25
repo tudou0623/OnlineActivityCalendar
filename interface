@@ -86,10 +86,11 @@ input : {
 output : {
 	count : long,		// total number of search results
 	userList: 
-		[  { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
-		   { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string } ,
+		[  { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string, isV:bool, isOrg:bool } ,
+		   { userID: integer, loginID:string, gender:string(M/F), signature:string, uname:string, isV:bool, isOrg:bool } ,
 				...
 		]
+	// isV：是否为加V用户， isOrg：是否为组织用户（公共账户）
 };
 
 
@@ -116,6 +117,7 @@ output : {
 	grade:		integer,	// 等级
 	isOnline:	bool,
 	isV:		bool,		// 是否加V用户
+	isOrg:		bool,		// 是否组织用户（公共账号）
 	
 	// 需访问权限信息
 	score:		integer, 	// 积分
@@ -214,15 +216,18 @@ output :{
 	[  
 		{ groupName:	string,  
 		  userlist: 
-			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] 
+			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string, isV:bool, isOrg:bool},..., ] 
 		},
 		{ groupName:	string,  
 		  userlist: 
-			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string},..., ] 
+			[{ userID: integer, loginID:string, remarkName:string, doDisplay:bool, uname:string, isV:bool, isOrg:bool},..., ] 
 		},
 		...
 	]
 	// the users' info is grouped by friendGroupName
+	// uname：用户注册时填写的昵称，remarkName: 加关注时设置的备注名
+	// isV: 是否为加V用户， isOrg: 是否为组织用户（公共账户）
+	// doDisplay: 是否特别关注（叠加该用户的日程到自己的日程表上）
 };
 
 
@@ -238,8 +243,8 @@ output :{
 	result:    	integer,	// 0 for success, 1 for access denied
 					// 2 for no followers, 3 for internal error
 	followerList:
-		[ 	{ userID: integer, loginID:string, uname:string } ,
-			{ userID: integer, loginID:string, uname:string } ,
+		[ 	{ userID: integer, loginID:string, uname:string, isV:bool, isOrg:bool } ,
+			{ userID: integer, loginID:string, uname:string, isV:bool, isOrg:bool } ,
 			  ...
 		]
 };
@@ -272,7 +277,9 @@ post session : {		// posted by  browser
 input :	{
 	uid : integer,		// the user id of the person u wanna care
 	gid : integer,		// the group id of the person u wanna to put into
-	remark: string,		// the remark name of the person u wanna to care
+				// 如果用户要新建分组，则先调用function: careAction!addFriendGroup.action
+				// 然后将返回的gid填到这里
+	remark: string,		// the remark name of the person u wanna to care（设置备注名）
 };
 output :{
 	result: integer,	// 0 for success, 1 for add care denied, 2 for no such person, 
@@ -374,7 +381,9 @@ input :{
 	pta:	integer,		// privacyTypeAttend, required. default = 1
 	gla:	string,			// grantedIdListAttend, required when privacyTypeAttend=5,6 
 	desc:	string,			// description
-	lid:	integer			// locationId, required when location is set	
+	lid:	integer			// locationId, required when location is set
+					// 即：如果用户输入地点信息，则先调用function: locAction!addLoaction.action
+					// 创建一个地点，然后把返回的locationId放到这里
 };
 output :{
 	result: integer,		// 0 for success, 1 for add activity denied, 
@@ -460,9 +469,11 @@ post session : {		// posted by  browser
 };
 input : {
 	title:	string,		// required
-	tag:	string,		// activity type not limited if not provided 
+	tag:	string,		// 活动类型，如果不设置则表示不限类型
+	lname:	string,		// location name（地点，如果不设置，表示不限地点）
 	st:	timestamp,	// start time
 	et:	timestamp,	// end time
+	isFull: bool,		// 活动是否已经满员
 	sb:	string,		// sort by "publishTime/startTime/endTime/creatorGrade"
 	asc:	bool,		// true for asc, false for desc
 	psize:	integer,	// page size
@@ -778,6 +789,8 @@ output :{
 
 
 ------------------------------------------------------------------------------------------------------------------- -->
+其他：ActivityImage要加一个字段（isPoster），表明是否为活动海报
+
 function : changeUserSetting
 
 function : userLogin
