@@ -371,7 +371,7 @@ post session : {		// posted by  browser
 	userID: 	integer
 };
 input :{
-	title:	string,			// required
+	title:	string,			// required（活动标题）
 	tag:	string,			// required（活动标签/类型）
 	remark: string,			// 备注信息
 	st:	timestamp,		// start time, required
@@ -407,8 +407,9 @@ output :{
 	isAttend: bool,			// whether the viewer attends this activity
 	creatorLoginId:	string,		// the creator's loginID
 	creatorName:	string,		// the creator's name ( remarkName when cared and remarkName set )
-	title:	string,
-	tag:	string,
+	title:	string,			// 活动标题
+	tag:	string,			// 活动标签/类型
+	remark: string,			// 备注信息
 	st:	timestamp,		// start time
 	et:	timestamp,		// end time
 	cap:	integer,		// capacity, if not set, means infinite
